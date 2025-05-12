@@ -1,12 +1,18 @@
 <?php
-
+session_start();
 require_once '../config/Database.php';
+
+
+//! Tüm Veriler
+$postAll = $_POST;
+//echo "<pre>"; print_r($postAll); die();
 
 // Form verilerini al
 $name = $_POST['name'] ?? '';
 $surname = $_POST['surname'] ?? '';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
+$user_role = $_POST['user_role'] ?? 'user';
 
 // Alanlar dolu mu kontrol et
 if (empty($name) || empty($email) || empty($password)) {
@@ -15,29 +21,38 @@ if (empty($name) || empty($email) || empty($password)) {
 }
 
 
-// E-posta daha önce kayıt olmuş mu kontrol et
-$user = DB::table('users')->where('email', '=',$email)->get();
-//echo "<pre>"; print_r($user); die();
+if($_POST['password'] != $_POST['repassword'] ) {
+    
+    $_SESSION['status'] = [
+        'type'      => "error",
+        'msg'      => "Sifreler Uyuşmuyor",
+    ];
 
-// E-posta kontrolü
-if (count($user) > 0) {
-    header("Location: register.php?error=" . urlencode("Bu e-posta zaten kayıtlı."));
-    exit;
+    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+
 }
+else {
+
+   
+    // E-posta daha önce kayıt olmuş mu kontrol et
+    $user = DB::table('users')->where('email', '=',$email)->get();
+    //echo "<pre>"; print_r($user); die();
+
+    // E-posta kontrolü
+    if (count($user) > 0) { 
+       
+        $_SESSION['status'] = [
+            'type'      => "error",
+            'msg'      => "Bu e-posta zaten kayıtlıdır.",
+        ];
+
+        header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+
+    }
 
 
-// Şifreyi hashle
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-// // Yeni kullanıcıyı ekle
-// $userAddData = [];
-// $userAddData["name"] = $name;
-// $userAddData["surname"] = $surname;
-// $userAddData["email"] = $email;
-// $userAddData["password"] = $hashedPassword;
-// $userAddData["created_byId"] = null; //? İşlemi Yapan Kişi [ 1 ] 
-
-// //echo "<pre>"; print_r($userAddData); die(); 
+    // Şifreyi hashle
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     //! Veri Ekleme
     $dbStatus =  DB::table('users')->insert([
@@ -45,7 +60,7 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         'surname' => $surname,
         'email' => $email,
         'password' => $hashedPassword,
-        'role' => 'user',
+        'role' => $user_role,
         'created_byId'=>null,
     ]); //! Veri Ekleme Son
 
@@ -55,10 +70,28 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Başarı mesajı
     if ($dbStatus) {
-        header("Location: ../views/login.php?role=user&&success=" . urlencode("Kayıt başarılı. Giriş yapabilirsiniz."));
-        exit;
+        
+        $_SESSION['status'] = [
+            'type'      => "success",
+            'msg'      => "Kayıt başarılı. Giriş yapabilirsiniz.",
+        ];
+
+        if($user_role == 'user') { header("Location: ../views/login.php?role=user");  exit; }
+        if($user_role == 'admin') { header("Location: ../views/login.php");  exit; }
+
     } else {
-        header("Location: register.php?error=" . urlencode("Kayıt başarısız. Lütfen tekrar deneyin."));
-        exit;
+
+         
+        $_SESSION['status'] = [
+            'type'      => "error",
+            'msg'      => "Kayıt başarısız. Lütfen tekrar deneyin.",
+        ];
+
+        header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+
     }
+
+}
+
+
 ?>

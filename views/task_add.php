@@ -32,6 +32,8 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
 <body class="bg-light">
   <div class="container py-4">
     <h3>Yeni İş Ekle</h3>
+    <a href="../index.php" class="btn btn-success mb-3 mt-3">Tüm Liste</a>
+
     <form action="../controllers/task_add_control.php" method="POST">
 
      <?php if($userRole == 'admin') {  ?>

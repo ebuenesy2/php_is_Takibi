@@ -1,4 +1,26 @@
-<?php require_once '../config/about.php'; ?>
+<?php 
+
+session_start();
+require_once '../config/about.php'; 
+
+
+//! --- Status Durum
+$status = isset($_SESSION['status']) ? $_SESSION['status']  : [];
+//echo "<pre>"; print_r($status); die();
+
+$status_type = isset($_SESSION['status']) ? $status['type'] : "type yok";
+// echo "status_type: "; echo $status_type; die();
+
+$status_msg = isset($_SESSION['status']) ? $status['msg'] : "msg yok";
+//echo "status_msg: "; echo $status_msg; die();
+
+unset($_SESSION['status']); //! Sesion Siliyor
+
+//echo "sayisi: "; echo count($status); echo "<br>";
+
+//! --- Status Durum -- Son
+
+?>
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -17,12 +39,13 @@
         <h3 class="text-center mb-4">Giriş Yap</h3>
       <?php } ?>
 
+    
       <!-- Alert -->
-      <?php if (isset($_GET['error'])): ?>
-      <div class="alert alert-danger"><?= htmlspecialchars($_GET['error']) ?></div>
-      <?php elseif (isset($_GET['success'])): ?>
-      <div class="alert alert-success"><?= htmlspecialchars($_GET['success']) ?></div>
-      <?php endif; ?>
+      <?php if (count($status) > 0 &&  $status['type'] == 'error' ) { ?>
+      <div class="alert alert-danger"><?= $status['msg']?></div>
+      <?php } else if ( count($status) > 0 &&  $status['type'] == 'success' ) { ?>
+      <div class="alert alert-success"><?= $status['msg'] ?></div>
+      <?php } ?>
       <!-- Alert Son -->
 
       <form action="<?=$base_url;?>/controllers/login_control.php" method="POST">
@@ -50,7 +73,6 @@
             <p class="text-center mt-3">Admin için <a href="login.php">Admin Girişi</a></p>
           <?php } else { ?>
             <p class="text-center mt-3">Kullanıcı  için <a href="login.php?role=user">Kullanıcı Girişi</a></p>
-            <p class="text-center mt-3">Yeni Hesap İçin <a href="register.php">Hesap Oluştur</a></p>
           <?php } ?>
         
       </form>

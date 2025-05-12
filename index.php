@@ -92,10 +92,11 @@ else {
     <p>İşleriniz aşağıda listelenmiştir:</p>
 
     <a href="<?=$base_url;?>/views/task_add.php" class="btn btn-success mb-3">Yeni İş Ekle</a>
-    <a href="<?=$base_url;?>/views//logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
+    <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
 
 
     <?php if ($userRole == 'admin' ) { ?> 
+      
     <form action="index.php" method="GET" style="display: flex;gap: 16px;border: 1px solid;padding: 5px;width: max-content;" >
 
       <div class="d-flex gap-3">
@@ -108,9 +109,11 @@ else {
           <?php }  ?>
         </select>
       </div>
-
        <button type="submit" class="btn btn-primary">Kullanıcı Ara</button>
     </form>
+
+    <a href="<?=$base_url;?>/views/userList.php" class="btn btn-info mt-3">Kullanıcı Listesi</a>
+
     <?php } ?>
 
     <br>

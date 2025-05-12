@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'Database.php';
+require_once '../config/Database.php';
 date_default_timezone_set('Europe/Istanbul'); //! Zaman Kontrol
 
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php?error=" . urlencode("Giriş Yapınız"));
+    header("Location: ../views/login.php?error=" . urlencode("Giriş Yapınız"));
     exit;
 }
 
@@ -38,7 +38,7 @@ if (!$task || $task[0]['user_id'] != $sessionId && $user['role'] =='user' ) {
         'msg'      => "Yetkiniz yoktur. - Silimezsiniz.",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: ../index.php"); exit;
 }
 
 // Güncelle
@@ -59,7 +59,7 @@ if ($updated) {
         'msg'      => "Güncelleme Yapıldı",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: ../index.php"); exit;
 
 } else {
 
@@ -68,6 +68,6 @@ if ($updated) {
         'msg'      => "Güncelleme Başarısız",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: ../index.php"); exit;
 
 }

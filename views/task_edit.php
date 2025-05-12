@@ -1,11 +1,8 @@
 <?php
 session_start();
-require_once 'Database.php';
+require_once '../config/Database.php';
 
-if (!isset($_SESSION['user'])) {
-    header("Location: login.html");
-    exit;
-}
+if (!isset($_SESSION['user'])) { header("Location: ../views/login.php"); exit; }
 
 $user = $_SESSION['user'];
 //echo "<pre>"; print_r($user); die();
@@ -44,20 +41,20 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
   <div class="container py-4">
 
     <div style="display: flex;gap: 5px; margin-bottom: 15px; " >
-      <a href="index.php" class="btn btn-success">Tüm Liste</a>
+      <a href="../index.php" class="btn btn-success">Tüm Liste</a>
 
       <?php if ( $task['deleted_status'] == 0 || $userRole == 'admin'  ) { ?>  
-      <a href="task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+      <a href="../views/task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
       <?php } ?>
 
       <?php if ($task['deleted_status'] == 1 ) { ?>  
-        <a href="task_back.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Geri Al</a>
+        <a href="../views/task_back.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Geri Al</a>
       <?php } ?>
 
     </div>
 
     <h3>İşi Düzenle</h3>
-    <form action="task_update.php" method="POST">
+    <form action="../controllers/task_edit_control.php" method="POST">
       <input type="hidden" name="id" value="<?= $task['id'] ?>">
 
       <?php if($userRole == 'admin') {  ?>

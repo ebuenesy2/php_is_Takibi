@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Database.php';
+require_once '../config/Database.php';
 
 // Form verilerini al
 $name = $_POST['name'] ?? '';
@@ -55,7 +55,7 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Başarı mesajı
     if ($dbStatus) {
-        header("Location: login.php?role=user&&success=" . urlencode("Kayıt başarılı. Giriş yapabilirsiniz."));
+        header("Location: ../views/login.php?role=user&&success=" . urlencode("Kayıt başarılı. Giriş yapabilirsiniz."));
         exit;
     } else {
         header("Location: register.php?error=" . urlencode("Kayıt başarısız. Lütfen tekrar deneyin."));

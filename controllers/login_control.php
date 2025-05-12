@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once 'Database.php';
+require_once '../config/Database.php';
+
 
 // Form verilerini al
 $email = $_POST['email'] ?? '';
@@ -8,7 +9,7 @@ $password = $_POST['password'] ?? '';
 
 // Alan kontrolü
 if (empty($email) || empty($password)) {
-    header("Location: login.php?error=" . urlencode("Lütfen tüm alanları doldurun."));
+    header("Location: ../views/login.php?error=" . urlencode("Lütfen tüm alanları doldurun."));
     exit;
 }
 
@@ -29,11 +30,10 @@ if (count($user) === 1 && password_verify($password, $user[0]['password'])) {
     ];
 
     // Yönlendirme
-    header("Location: index.php");
-    exit;
+    header("Location: ../index.php"); exit;
     
 } else {
-    header("Location: login.php?error=" . urlencode("Geçersiz Giriş"));
+    header("Location: ../views/login.php?error=" . urlencode("Geçersiz Giriş"));
     exit;
 }
 ?>

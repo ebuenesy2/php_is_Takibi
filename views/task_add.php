@@ -1,13 +1,11 @@
 <?php
 
 session_start();
-require_once 'Database.php';
+require_once '../config/about.php';
+require_once '../config/Database.php';
 
 // Giriş kontrolü
-if (!isset($_SESSION['user'])) {
-  header("Location: login.php");
-  exit;
-}
+if (!isset($_SESSION['user'])) { header("Location: ../views/login.php"); exit; }
 
 $user = $_SESSION['user'];
 //echo "<pre>"; print_r($user); die();
@@ -34,7 +32,7 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
 <body class="bg-light">
   <div class="container py-4">
     <h3>Yeni İş Ekle</h3>
-    <form action="task_add_control.php" method="POST">
+    <form action="../controllers/task_add_control.php" method="POST">
 
      <?php if($userRole == 'admin') {  ?>
       <div class="mb-3">

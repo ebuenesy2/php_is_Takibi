@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'Database.php';
+require_once '../config/Database.php';
 
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+    header("Location: ../views/login.php");
     exit;
 }
 
@@ -27,7 +27,7 @@ if (empty($title) || empty($description)) {
         'msg'      => "Eksik Bilgiler Var.",
     ];
 
-    header("Location: index.php?error=" . urlencode("Eksik Bilgiler Var."));
+    header("Location: ../index.php?error=" . urlencode("Eksik Bilgiler Var."));
     exit;
 }
 
@@ -49,7 +49,7 @@ if ($insert) {
         'msg'      => "Görev Eklendi",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: ../index.php"); exit;
 
 } else {
 
@@ -58,7 +58,7 @@ if ($insert) {
         'msg'      => "Görev Eklenemedi",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: ../index.php"); exit;
     
 }
 

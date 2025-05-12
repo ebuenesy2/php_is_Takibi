@@ -1,3 +1,5 @@
+<?php require_once '../config/about.php'; ?>
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -23,7 +25,7 @@
       <?php endif; ?>
       <!-- Alert Son -->
 
-      <form action="login_control.php" method="POST">
+      <form action="<?=$base_url;?>/controllers/login_control.php" method="POST">
         
         <?php if (isset($_GET['role']) && !empty($_GET['role']) && $_GET['role'] == 'user') { ?>
           <div class="mb-3">

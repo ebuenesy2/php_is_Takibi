@@ -1,3 +1,5 @@
+<?php require_once '../config/about.php'; ?>
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -18,7 +20,7 @@
       <?php endif; ?>
        <!-- Alert Son -->
 
-      <form action="register_control.php" method="POST">
+      <form action="<?=$base_url;?>/controllers/register_control.php" method="POST">
         <div class="mb-3">
           <label for="name" class="form-label">Ad</label>
           <input type="text" name="name" id="name" class="form-control" required>

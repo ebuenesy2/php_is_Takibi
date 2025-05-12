@@ -1,11 +1,8 @@
 <?php
 session_start();
-require_once 'Database.php';
+require_once '../config/Database.php';
 
-if (!isset($_SESSION['user'])) {
-    header("Location: login.html");
-    exit;
-}
+if (!isset($_SESSION['user'])) { header("Location: ../views/login.php"); exit; };
 
 $user = $_SESSION['user'];
 //echo "<pre>"; print_r($user); die();
@@ -28,20 +25,26 @@ if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
         'msg'      => "Yetkiniz yoktur. - Silimezsiniz.",
     ];
 
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+    header("Location: ../index.php"); exit;
 }
 
 
 
-// Güncelle
-$deleted = DB::table('tasks')->where('id', '=', $taskId)->update([
-    'deleted_status' => 0,
-    'deleted_byId' => null,
-    'deleted_at' => null,
-    'updated_status' => 1,
-    'updated_byId' => $sessionId,
-    'updated_at' => date('Y-m-d H:i:s')
-]);
+// Sil
+if($task[0]['deleted_status'] == 1 && $user['role'] =='admin') { $deleted = DB::table('tasks')->delete($taskId); }
+if( $task[0]['deleted_status'] == 0 ) {
+
+    // Güncelle
+    $deleted = DB::table('tasks')->where('id', '=', $taskId)->update([
+        'deleted_status' => 1,
+        'deleted_byId' => $userId,
+        'deleted_at' => date('Y-m-d H:i:s'),
+        'updated_status' => 1,
+        'updated_byId' => $sessionId,
+        'updated_at' => date('Y-m-d H:i:s')
+    ]);
+
+}
 
 
 if ($deleted) {
@@ -51,7 +54,7 @@ if ($deleted) {
         'msg'      => "Görev Silindi",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
 
 } else {
 
@@ -60,7 +63,7 @@ if ($deleted) {
         'msg'      => "Görev Silinemedi",
     ];
 
-    header("Location: index.php"); exit;
+    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
     
 }
 

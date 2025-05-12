@@ -1,9 +1,10 @@
 <?php
 session_start();
-require_once 'Database.php';
+require_once 'config/about.php';
+require_once 'config/Database.php';
 
 // Giriş kontrolü
-if (!isset($_SESSION['user'])) {  header("Location: login.php"); exit; }
+if (!isset($_SESSION['user'])) {  header("Location: ../views/login.php"); exit; }
 
 //! --- Status Durum
 $status = isset($_SESSION['status']) ? $_SESSION['status']  : [];
@@ -90,8 +91,8 @@ else {
     <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋</h2>
     <p>İşleriniz aşağıda listelenmiştir:</p>
 
-    <a href="task_add.php" class="btn btn-success mb-3">Yeni İş Ekle</a>
-    <a href="logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
+    <a href="<?=$base_url;?>/views/task_add.php" class="btn btn-success mb-3">Yeni İş Ekle</a>
+    <a href="<?=$base_url;?>/views//logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
 
     <form action="index.php" method="GET" style="display: flex;gap: 16px;border: 1px solid;padding: 5px;width: max-content;" >
 
@@ -155,14 +156,14 @@ else {
             <?php if($userRole == 'admin') {  ?> <td><?= htmlspecialchars($task['updated_User_name']) ?></td> <?php } ?>
             
               <td>
-                <a href="task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
+                <a href="<?=$base_url;?>/views/task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
                 
                 <?php if ($status_where != 'Arşivlenen' || $userRole == 'admin' ) { ?> 
-                <a href="task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+                <a href="<?=$base_url;?>/views/task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
                 <?php } ?>
 
                 <?php if ($status_where == 'Arşivlenen') { ?> 
-                <a href="task_back.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
+                <a href="<?=$base_url;?>/views/task_back.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
                 <?php } ?>
 
               </td>

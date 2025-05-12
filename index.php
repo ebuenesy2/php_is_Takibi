@@ -24,10 +24,8 @@ unset($_SESSION['status']); //! Sesion Siliyor
 
 
 // Url Veriden UserId
-$user_id_get = $_GET['user_id'] ?? 0; 
+$user_id_get = $_GET['user_id'] ?? ''; 
 //echo "user_id_get: "; echo $user_id_get; die();
-
-
 
 
 $user = $_SESSION['user'];
@@ -52,6 +50,8 @@ if($userRole == 'admin') {
   if ($status_where != 'tüm' && $status_where != 'Arşivlenen' ) { $tasks = $tasks->where('tasks.status', '=', $status_where); }
   if ($status_where == 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 1); }
   else if ($status_where != 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 0); }
+  
+  if ($user_id_get ) { $tasks = $tasks->where('tasks.user_id', '=', $user_id_get); }
 
   $tasks = $tasks->get();
   //echo "<pre>"; print_r($tasks); die();
@@ -94,32 +94,33 @@ else {
     <a href="<?=$base_url;?>/views/task_add.php" class="btn btn-success mb-3">Yeni İş Ekle</a>
     <a href="<?=$base_url;?>/views//logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
 
+
+    <?php if ($userRole == 'admin' ) { ?> 
     <form action="index.php" method="GET" style="display: flex;gap: 16px;border: 1px solid;padding: 5px;width: max-content;" >
 
       <div class="d-flex gap-3">
         <label for="user_id" class="form-label" style="margin: auto;" >Kullanıcı</label>
-        <select name="user_id" id="user_id" class="form-control"  style="cursor: pointer;width: max-content;" >
+        <select name="user_id" id="user_id" class="form-control"  style="cursor: pointer;width: max-content;" selected >
+          <option value="0" style=" cursor: pointer; " <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?> >Hepsi</option>
           <?php foreach ($users as $user ) { ?>
-            <option value="<?=$user['id'] ?>" style=" cursor: pointer; " 
-            
-              <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?>
-
-            ><?=$user['name'] ?></option>
+            <option value="<?=$user['id'] ?>" style=" cursor: pointer; " <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?> >
+            <?=$user['name'] ?></option>
           <?php }  ?>
         </select>
       </div>
 
        <button type="submit" class="btn btn-primary">Kullanıcı Ara</button>
     </form>
+    <?php } ?>
 
     <br>
     <hr>
 
-    <a href="index.php?status=tüm" class="btn btn-success mb-3">Tüm</a>
-    <a href="index.php" class="btn btn-warning mb-3">Bekliyor</a>
-    <a href="index.php?status=Planlandı" class="btn btn-danger mb-3">Planlandı</a>
-    <a href="index.php?status=Tamamlandı" class="btn btn-info mb-3">Tamamlandı</a>
-    <a href="index.php?status=Arşivlenen" class="btn btn-danger mb-3">Arşivlenen</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=tüm" class="btn btn-success mb-3">Tüm</a>
+    <a href="index.php?user_id=<?=$user_id_get?>" class="btn btn-warning mb-3">Bekliyor</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=Planlandı" class="btn btn-danger mb-3">Planlandı</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=Tamamlandı" class="btn btn-info mb-3">Tamamlandı</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=Arşivlenen" class="btn btn-danger mb-3">Arşivlenen</a>
 
       <!-- Alert -->
       <?php if (count($status) > 0 &&  $status['type'] == 'error' ) { ?>

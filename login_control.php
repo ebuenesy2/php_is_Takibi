@@ -1,0 +1,39 @@
+<?php
+session_start();
+require_once 'Database.php';
+
+// Form verilerini al
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+
+// Alan kontrolü
+if (empty($email) || empty($password)) {
+    header("Location: login.php?error=" . urlencode("Lütfen tüm alanları doldurun."));
+    exit;
+}
+
+
+// Kullanıcıyı veritabanında ara
+$user = DB::table('users')->where('email', '=', $email)->get();
+//echo "<pre>"; print_r($user); die();
+
+// Kullanıcı var mı ve şifresi doğru mu?
+if (count($user) === 1 && password_verify($password, $user[0]['password'])) {
+    // Oturumu başlat
+    $_SESSION['user'] = [
+        'id'      => $user[0]['id'],
+        'name'    => $user[0]['name'],
+        'surname' => $user[0]['surname'],
+        'email'   => $user[0]['email'],
+        'role'   => $user[0]['role'],
+    ];
+
+    // Yönlendirme
+    header("Location: index.php");
+    exit;
+    
+} else {
+    header("Location: login.php?error=" . urlencode("Geçersiz Giriş"));
+    exit;
+}
+?>

@@ -5,7 +5,7 @@ require_once 'Database.php';
 // Giriş kontrolü
 if (!isset($_SESSION['user'])) {  header("Location: login.php"); exit; }
 
-//! Status Durum
+//! --- Status Durum
 $status = isset($_SESSION['status']) ? $_SESSION['status']  : [];
 //echo "<pre>"; print_r($status); die();
 
@@ -19,7 +19,14 @@ unset($_SESSION['status']); //! Sesion Siliyor
 
 //! echo "sayisi: "; echo count($status); echo "<br>";
 
-//! Status Durum  - Son
+//! --- Status Durum -- Son
+
+
+// Url Veriden UserId
+$user_id_get = $_GET['user_id'] ?? 0; 
+//echo "user_id_get: "; echo $user_id_get; die();
+
+
 
 
 $user = $_SESSION['user'];
@@ -86,7 +93,26 @@ else {
     <a href="task_add.php" class="btn btn-success mb-3">Yeni İş Ekle</a>
     <a href="logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
 
+    <form action="index.php" method="GET" style="display: flex;gap: 16px;border: 1px solid;padding: 5px;width: max-content;" >
+
+      <div class="d-flex gap-3">
+        <label for="user_id" class="form-label" style="margin: auto;" >Kullanıcı</label>
+        <select name="user_id" id="user_id" class="form-control"  style="cursor: pointer;width: max-content;" >
+          <?php foreach ($users as $user ) { ?>
+            <option value="<?=$user['id'] ?>" style=" cursor: pointer; " 
+            
+              <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?>
+
+            ><?=$user['name'] ?></option>
+          <?php }  ?>
+        </select>
+      </div>
+
+       <button type="submit" class="btn btn-primary">Kullanıcı Ara</button>
+    </form>
+
     <br>
+    <hr>
 
     <a href="index.php?status=tüm" class="btn btn-success mb-3">Tüm</a>
     <a href="index.php" class="btn btn-warning mb-3">Bekliyor</a>

@@ -66,7 +66,7 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
         <select name="user_id" id="user_id" class="form-control"  style=" cursor: pointer; " >
           <?php foreach ($users as $user ) { ?>
             <option value="<?=$user['id'] ?>" style=" cursor: pointer; "  
-                    <?= ($user['id'] == $task['user_id']) ? 'selected' : '' ?>
+              <?= ($user['id'] == $task['user_id']) ? 'selected' : '' ?>
             ><?=$user['name'] ?></option>
          <?php }  ?>
         </select>

@@ -13,7 +13,7 @@ class DB {
                 // $password = "";
 
                 $host = "84.252.81.8";
-                $dbname = "yildixkn_task_test";
+                $dbname = "yildixkn_task";
                 $username = "yildixkn_root";
                 $password = "sc2+(]tQtaLD";
 

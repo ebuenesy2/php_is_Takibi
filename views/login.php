@@ -58,7 +58,7 @@ unset($_SESSION['status']); //! Sesion Siliyor
         <?php } else { ?>
           <div class="mb-3 d-none">
             <label for="email" class="form-label">E-posta - Admin</label>
-            <input type="email" name="email" id="email" value="admin@tusdata.com" class="form-control" required>
+            <input type="email" name="email" id="email" value="<?=$base_admin_email;?>" class="form-control" required>
           </div>
         <?php } ?>
 

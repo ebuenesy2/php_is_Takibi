@@ -89,6 +89,31 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 
       <button type="submit" class="btn btn-primary">Kaydet</button>
     </form>
+
+    <br>
+
+    <h3>Sifre Değiştir </h3>
+    <form action="../controllers/user_edit_password_control.php" method="POST">
+      <input type="hidden" name="id" value="<?= $user['id'] ?>">
+
+       <div class="mb-3">
+        <label for="password" class="form-label">Şifre</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="newpassword" class="form-label">Yeni Şifre   </label>
+        <input type="password" name="newpassword" id="newpassword" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="renewpassword" class="form-label">Yeni Şifre Tekrarla</label>
+        <input type="password" name="renewpassword" id="renewpassword" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Değiştir ve Kaydet</button>
+    </form>
+
   </div>
 </body>
 </html>

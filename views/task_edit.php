@@ -52,11 +52,11 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
       <a href="../index.php" class="btn btn-success">Tüm Liste</a>
 
       <?php if ( $task['deleted_status'] == 0 || $userRole == 'admin'  ) { ?>  
-      <a href="../views/task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+      <a href="../controllers/task_delete_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
       <?php } ?>
 
       <?php if ($task['deleted_status'] == 1 ) { ?>  
-        <a href="../views/task_back.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Geri Al</a>
+        <a href="../controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Geri Al</a>
       <?php } ?>
 
     </div>

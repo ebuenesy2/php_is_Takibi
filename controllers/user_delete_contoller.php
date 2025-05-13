@@ -2,7 +2,7 @@
 session_start();
 require_once '../config/Database.php';
 
-if (!isset($_SESSION['user'])) { header("Location: ../views/login.php"); exit; };
+if (!isset($_SESSION['user'])) { header("Location: ../views/login.php"); exit; }
 
 $user = $_SESSION['user'];
 //echo "<pre>"; print_r($user); die();
@@ -20,16 +20,6 @@ $user_Get_Id = $_GET['id'] ?? 0;
 // Güvenlik kontrolü: sadece kendi görevini silebilir
 $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
-
-if (!$userFind && $userFind[0]['id'] != $userId || $user['role'] =='user' ) { 
- 
-    $_SESSION['status'] = [
-        'type'      => "error",
-        'msg'      => "Yetkiniz yoktur. - Silimezsiniz.",
-    ];
-
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
-}
 
 
 // Sil
@@ -56,17 +46,19 @@ if ($deleted && $userFind[0]['deleted_status'] == 1 && $user['role'] =='admin') 
         'msg'      => "Kullanıcı Silindi",
     ];
 
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
 
 }
 else if ($deleted && $userFind[0]['deleted_status'] == 0) {
     
-    $_SESSION['status'] = [
-        'type'      => "success",
-        'msg'      => "Kullanıcı Arşivlendi",
-    ];
-
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+    if($user['role'] =='admin') { 
+        $_SESSION['status'] = [ 'type' => "success", 'msg' => "Kullanıcı Arşivlendi", ];
+        header("Location: ../views/userList.php"); exit;    
+    }
+    if($user['role'] =='user') { 
+     $_SESSION['status'] = [ 'type'  => "success", 'msg' => "Kullanıcı Silindi", ];
+     header("Location: ../views/login.php"); exit; 
+    }
 
 }else {
 
@@ -75,7 +67,8 @@ else if ($deleted && $userFind[0]['deleted_status'] == 0) {
         'msg'      => "Kullanıcı Silinemedi",
     ];
 
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
+    if($user['role'] =='user') { header("Location: ../index.php"); exit; }
     
 }
 

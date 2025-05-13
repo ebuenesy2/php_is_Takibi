@@ -20,8 +20,11 @@ $user = DB::table('users')->where('email', '=', $email)->get();
 
 // Kullanıcı var mı ve şifresi doğru mu?
 if (count($user) === 1 && password_verify($password, $user[0]['password'])) {
+
+    
     // Oturumu başlat
     $_SESSION['user'] = [
+        'status'      => $user[0]['deleted_status'] == 0 ? 'active' : 'passive',
         'id'      => $user[0]['id'],
         'name'    => $user[0]['name'],
         'surname' => $user[0]['surname'],
@@ -29,7 +32,11 @@ if (count($user) === 1 && password_verify($password, $user[0]['password'])) {
         'role'   => $user[0]['role'],
     ];
 
-    // Yönlendirme
+  
+    //! Kullanıcı Pasif Sayfası - Yönlendirme
+    if($user[0]['deleted_status'] == 1) {  header("Location: ../views/error/userPasif.php"); exit; }
+    
+    //! Anasayfa Sayfası - Yönlendirme
     header("Location: ../index.php"); exit;
     
 } else {

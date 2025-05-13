@@ -35,6 +35,8 @@ $userId = $user['id'];
 $userRole = $user['role'];
 //echo "role:"; echo $userRole; die();
 
+if ( $userRole == 'user' ) {  header("Location: ../views/error/userNoAuth.php"); exit; }
+
 // Url Veri Çekme
 $status_where = $_GET['status'] ?? 'Tüm'; 
 //echo "status_where: "; echo $status_where; die();
@@ -64,7 +66,9 @@ $users = $users->get();
 </head>
 <body class="bg-light">
   <div class="container py-4">
-    <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋</h2>
+    <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋
+     <a href="<?=$base_url;?>/views/user_edit.php?id=<?= $userId ?>" class="btn btn-sm btn-warning"> Profil Düzenle</a>
+    </h2>
     <p>Kullanıcı Listesi</p>
 
 
@@ -120,7 +124,7 @@ $users = $users->get();
               <td>
                 <a href="<?=$base_url;?>/views/user_edit.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
                 
-                 <?php if ($status_where == 'Arşivlenen') { ?> 
+                <?php if ($status_where == 'Arşivlenen') { ?> 
                 <a href="<?=$base_url;?>/controllers/user_back_controller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
                 <?php } ?>
                 

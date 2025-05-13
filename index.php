@@ -88,12 +88,14 @@ else {
 </head>
 <body class="bg-light">
   <div class="container py-4">
-    <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋</h2>
+    <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋 
+      <a href="<?=$base_url;?>/views/user_edit.php?id=<?= $userId ?>" class="btn btn-sm btn-warning"> Profil Düzenle</a>
+    </h2>
     <p>Yapılacaklar Listesi</p>
 
     <div class="mb-3">
       <a href="<?=$base_url;?>/views/task_add.php" class="btn btn-success">Yeni İş Ekle</a>
-      <a href="<?=$base_url;?>/views/userList.php" class="btn btn-info">Kullanıcı Listesi</a>
+      <?php if($userRole == 'admin') {  ?>  <a href="<?=$base_url;?>/views/userList.php" class="btn btn-info">Kullanıcı Listesi</a> <?php } ?>
       <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger">Çıkış Yap</a>
     </div>
 
@@ -123,7 +125,7 @@ else {
     <hr>
 
     <a href="index.php?user_id=<?=$user_id_get?>&&status=tüm" class="btn btn-success mb-3">Tüm</a>
-    <a href="index.php?user_id=<?=$user_id_get?>" class="btn btn-warning mb-3">Bekliyor</a>
+    <a href="index.php?user_id=<?=$user_id_get?>" class="btn btn-warning mb-3">Devam Ediliyor</a>
     <a href="index.php?user_id=<?=$user_id_get?>&&status=Planlandı" class="btn btn-danger mb-3">Planlandı</a>
     <a href="index.php?user_id=<?=$user_id_get?>&&status=Tamamlandı" class="btn btn-info mb-3">Tamamlandı</a>
     <a href="index.php?user_id=<?=$user_id_get?>&&status=Arşivlenen" class="btn btn-danger mb-3">Arşivlenen</a>
@@ -165,13 +167,16 @@ else {
               <td>
                 <a href="<?=$base_url;?>/views/task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
                 
+                         
+                <?php if ($status_where == 'Arşivlenen') { ?> 
+                <a href="<?=$base_url;?>/controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
+                <?php } ?>
+
                 <?php if ($status_where != 'Arşivlenen' || $userRole == 'admin' ) { ?> 
                 <a href="<?=$base_url;?>/controllers/task_delete_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
                 <?php } ?>
 
-                <?php if ($status_where == 'Arşivlenen') { ?> 
-                <a href="<?=$base_url;?>/controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
-                <?php } ?>
+       
 
               </td>
           </tr>

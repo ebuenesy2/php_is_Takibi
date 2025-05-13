@@ -11,7 +11,6 @@ $userId = $user['id'];
 $userRole = $user['role'];
 //echo "userRole: "; echo $userRole; die();
 
-
 //! Gelen Veri
 $user_Get_Id = $_GET['id'] ?? 0;
 //echo "user_Get_Id:"; echo $user_Get_Id; die();
@@ -47,14 +46,15 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
   <div class="container py-4">
 
     <div style="display: flex;gap: 5px; margin-bottom: 15px; " >
-      <a href="../index.php" class="btn btn-success">Tüm Kullanici Liste</a>
+      
+      <?php if($userRole == 'admin') {  ?> <a href="../index.php" class="btn btn-success">Tüm Kullanici Liste</a> <?php } ?>
 
       <?php if ( $user['deleted_status'] == 0 || $userRole == 'admin'  ) { ?>  
-      <a href="../views/user_delete.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+      <a href="../controllers/user_delete_contoller.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Hesabı Sil</a>
       <?php } ?>
 
-      <?php if ($user['deleted_status'] == 1 ) { ?>  
-        <a href="../views/user_back.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Geri Al</a>
+      <?php if ($user['deleted_status'] == 1 && $userRole == 'admin'  ) { ?>  
+        <a href="../controllers/user_back_controller.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Geri Al</a>
       <?php } ?>
 
     </div>

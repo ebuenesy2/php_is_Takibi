@@ -47,7 +47,8 @@ if ($updated) {
         'msg'      => "Güncelleme Yapıldı",
     ];
 
-    header("Location: ../views/userList.php"); exit;
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
+    if($user['role'] =='user') { header("Location: ../index.php"); exit; }
 
 } else {
 
@@ -56,6 +57,7 @@ if ($updated) {
         'msg'      => "Güncelleme Başarısız",
     ];
 
-    header("Location: ../views/userList.php"); exit;
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
+    if($user['role'] =='user') { header("Location: ../index.php"); exit; }
 
 }

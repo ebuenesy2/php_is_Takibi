@@ -16,7 +16,7 @@ $userRole = $user['role'];
 
 // Kullanıcının bilgileri al
 $users=[];
-if($userRole == 'admin') {   $users = DB::table('users')->get(); }
+if($userRole == 'admin') {   $users = DB::table('users')->orderBy('name', 'ASC')->get(); }
 //echo "<pre>"; print_r($users); die();
 
 

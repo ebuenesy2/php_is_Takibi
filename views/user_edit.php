@@ -16,7 +16,7 @@ $user_Get_Id = $_GET['id'] ?? 0;
 //echo "user_Get_Id:"; echo $user_Get_Id; die();
 
 //! Kullanıcı Bilgileri
-$userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
+$userFind = DB::table('users')->where('id', '=', $user_Get_Id)->orderBy('name', 'ASC')->get();
 //echo "<pre>"; print_r($userFind); die();
 
   if (!$userFind) {  

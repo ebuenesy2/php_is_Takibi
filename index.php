@@ -53,13 +53,13 @@ if($userRole == 'admin') {
   
   if ($user_id_get ) { $tasks = $tasks->where('tasks.user_id', '=', $user_id_get); }
 
-  $tasks = $tasks->get();
+  $tasks = $tasks->orderBy('id', 'DESC')->get();
   //echo "<pre>"; print_r($tasks); die();
 
   
   // Kullanıcının bilgileri al
   $users=[];
-  if($userRole == 'admin') {   $users = DB::table('users')->get(); }
+  if($userRole == 'admin') {   $users = DB::table('users')->orderBy('name', 'ASC')->get(); }
   //echo "<pre>"; print_r($users); die();
   
 }
@@ -70,7 +70,7 @@ else {
   if ($status_where == 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 1); }
   else if ($status_where != 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 0); }
 
-  $tasks = $tasks->get(); 
+  $tasks = $tasks->orderBy('id', 'DESC')->get();
 
   //echo "<pre>"; print_r($tasks); die();
 

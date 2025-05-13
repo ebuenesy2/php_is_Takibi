@@ -50,7 +50,7 @@ if ($status_where == 'Arşivlenen') { $users = $users->where('users.deleted_stat
 else if ($status_where != 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 0); }
 
 
-$users = $users->get();
+$users = $users->orderBy('id', 'DESC')->get();
 //echo "<pre>"; print_r($users); die();
         
 

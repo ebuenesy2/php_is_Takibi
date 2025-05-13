@@ -122,17 +122,17 @@ $users = $users->orderBy('id', 'DESC')->get();
             <td><?= htmlspecialchars($userInfo['created_at']) ?></td>
             <td><?= htmlspecialchars($userInfo['updated_status']) ?></td>
             <td><?= htmlspecialchars($userInfo['updated_at']) ?></td>
-             <td><?= htmlspecialchars($userInfo['updated_User_name']) ?></td> 
+            <td><?= htmlspecialchars($userInfo['updated_User_name']) ?></td> 
             
-              <td>
-                <a href="<?=$base_url;?>/views/user_edit.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
-                
-                <?php if ($status_where == 'Arşivlenen') { ?> 
-                <a href="<?=$base_url;?>/controllers/user_back_controller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
-                <?php } ?>
-                
-                <a href="<?=$base_url;?>/controllers/user_delete_contoller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
-              </td>
+            <td style="display: flex;gap: 3px;">
+              <a href="<?=$base_url;?>/views/user_edit.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
+              
+              <?php if ($status_where == 'Arşivlenen') { ?> 
+              <a href="<?=$base_url;?>/controllers/user_back_controller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
+              <?php } ?>
+              
+              <a href="<?=$base_url;?>/controllers/user_delete_contoller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>

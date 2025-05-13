@@ -14,14 +14,22 @@ $taskId = $_GET['id'] ?? 0;
 
 // Görev çek
 $task = DB::table('tasks')->where('id', '=', $taskId)->get();
-
-if (!$task ) { die("Bu görev bulunamadı."); }
-else if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) { die("Bu görevi düzenlemeye yetkiniz yok."); }
+//echo "<pre>"; print_r($task); die();
 
 $task = $task[0];
-
 //echo "user_id:"; echo $task['user_id']; die();
 
+if (!$task ) { die("Bu görev bulunamadı."); }
+else if (!$task || $task['user_id'] != $userId && $user['role'] =='user' ) { 
+
+      $_SESSION['status'] = [
+          'type'      => "error",
+          'msg'      => "Yetkiniz yoktur. - Düzenleme yapamazsınız.",
+      ];
+
+      header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+
+}
 
 // Kullanıcının bilgileri al
 $users=[];

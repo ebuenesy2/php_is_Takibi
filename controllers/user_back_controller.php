@@ -16,7 +16,7 @@ $userRole = $user['role'];
 $user_Get_Id = $_GET['id'] ?? 0;
 //echo "user_Get_Id:"; echo $user_Get_Id; die();
 
-// Güvenlik kontrolü: sadece kendi görevini silebilir
+//! Kullanıcı Bilgileri
 $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
 

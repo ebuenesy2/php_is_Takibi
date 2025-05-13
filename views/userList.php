@@ -94,6 +94,9 @@ $users = $users->get();
         <tr>
           <th>id</th>
           <th>Adı</th>
+          <th>Soyadı</th>
+          <th>Email</th>
+          <th>Role</th>
           <th>Oluşturma Tarihi</th>
           <th>Güncelleme Durumu</th>
           <th>Güncelleme Tarihi</th>
@@ -106,6 +109,9 @@ $users = $users->get();
           <tr>
             <td><?= htmlspecialchars($userInfo['id']) ?></td>
             <td><?= htmlspecialchars($userInfo['name']) ?></td>
+            <td><?= htmlspecialchars($userInfo['surname']) ?></td>
+            <td><?= htmlspecialchars($userInfo['email']) ?></td>
+            <td><?= htmlspecialchars($userInfo['role']) ?></td>
             <td><?= htmlspecialchars($userInfo['created_at']) ?></td>
             <td><?= htmlspecialchars($userInfo['updated_status']) ?></td>
             <td><?= htmlspecialchars($userInfo['updated_at']) ?></td>

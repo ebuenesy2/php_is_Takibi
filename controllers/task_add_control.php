@@ -2,10 +2,7 @@
 session_start();
 require_once '../config/Database.php';
 
-if (!isset($_SESSION['user'])) {
-    header("Location: ../views/login.php");
-    exit;
-}
+if (!isset($_SESSION['user'])) { header("Location: ../views/login.php"); exit; } 
 
 $sessionId = $_SESSION['user']['id'];
 

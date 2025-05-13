@@ -64,28 +64,27 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
 
     <form action="../controllers/register_control.php" method="POST">
 
-        <div class="mb-3">
-          <label for="name" class="form-label">Ad</label>
-          <input type="text" name="name" id="name" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label for="surname" class="form-label"> Soyad</label>
-          <input type="text" name="surname" id="surname" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">E-posta</label>
-          <input type="email" name="email" id="email" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Şifre</label>
-          <input type="password" name="password" id="password" class="form-control" required>
-        </div>
-        
-        <div class="mb-3">
-          <label for="repassword" class="form-label">Şifre Tekrarla</label>
-          <input type="password" name="repassword" id="repassword" class="form-control" required>
-        </div>
-
+      <div class="mb-3">
+        <label for="name" class="form-label">Ad</label>
+        <input type="text" name="name" id="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="surname" class="form-label"> Soyad</label>
+        <input type="text" name="surname" id="surname" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">E-posta</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Şifre</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="repassword" class="form-label">Şifre Tekrarla</label>
+        <input type="password" name="repassword" id="repassword" class="form-control" required>
+      </div>
       
       <div class="mb-3">
         <label for="user_role" class="form-label">Role</label>

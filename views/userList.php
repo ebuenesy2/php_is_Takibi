@@ -36,13 +36,21 @@ $userRole = $user['role'];
 //echo "role:"; echo $userRole; die();
 
 // Url Veri Çekme
-$status_where = $_GET['status'] ?? 'Devam Ediliyor'; 
+$status_where = $_GET['status'] ?? 'Tüm'; 
 //echo "status_where: "; echo $status_where; die();
 
 // Kullanıcı Listesi
 $users = DB::table('users')
         ->leftJoin('users as updated_User ', 'users.updated_byId', '=', 'updated_User.id')
-        ->select('users.*',  'updated_User.name as updated_User_name')->get();
+        ->select('users.*',  'updated_User.name as updated_User_name');
+
+if ($status_where == 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 1); }
+else if ($status_where != 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 0); }
+
+
+$users = $users->get();
+//echo "<pre>"; print_r($users); die();
+        
 
 
 ?>
@@ -59,8 +67,18 @@ $users = DB::table('users')
     <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋</h2>
     <p>Kullanıcı Listesi</p>
 
-    <a href="<?=$base_url;?>/views/user_register.php" class="btn btn-success mb-3">Yeni Kişi Ekle</a>
-    <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
+
+    <div class="mb-3">
+      <a href="<?=$base_url;?>/views/user_register.php" class="btn btn-success">Yeni Kişi Ekle</a>
+      <a href="<?=$base_url;?>/index.php" class="btn btn-info">Yapılacaklar Listesi</a>
+      <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger">Çıkış Yap</a>
+    </div>
+
+    <hr>
+
+    <a href="<?=$base_url;?>/views/userList.php" class="btn btn-success mb-3">Tüm</a>
+    <a href="<?=$base_url;?>/views/userList.php?status=Arşivlenen" class="btn btn-danger mb-3">Arşivlenen</a>
+
 
 
     <!-- Alert -->
@@ -94,8 +112,13 @@ $users = DB::table('users')
              <td><?= htmlspecialchars($userInfo['updated_User_name']) ?></td> 
             
               <td>
-                <a href="<?=$base_url;?>/views/task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
-                 <a href="<?=$base_url;?>/views/task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+                <a href="<?=$base_url;?>/views/user_edit.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
+                
+                 <?php if ($status_where == 'Arşivlenen') { ?> 
+                <a href="<?=$base_url;?>/controllers/user_back_controller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
+                <?php } ?>
+                
+                <a href="<?=$base_url;?>/controllers/user_delete_contoller.php?id=<?= $userInfo['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
               </td>
           </tr>
         <?php endforeach; ?>

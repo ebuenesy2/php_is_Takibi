@@ -9,16 +9,18 @@ $user = $_SESSION['user'];
 
 $userId = $user['id'];
 $userRole = $user['role'];
-$taskId = $_GET['id'] ?? 0;
 //echo "userRole: "; echo $userRole; die();
 
-$taskId = $_GET['id'] ?? 0;
+
+//! Gelen Veri
+$user_Get_Id = $_GET['id'] ?? 0;
+//echo "user_Get_Id:"; echo $user_Get_Id; die();
 
 // Güvenlik kontrolü: sadece kendi görevini silebilir
-$task = DB::table('tasks')->where('id', '=', $taskId)->get();
-//echo "<pre>"; print_r($task); die();
+$userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
+//echo "<pre>"; print_r($userFind); die();
 
-if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
+if (!$userFind && $userFind[0]['id'] != $userId || $user['role'] =='user' ) { 
 
     $_SESSION['status'] = [
         'type'      => "error",
@@ -31,12 +33,12 @@ if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
 
 
 // Güncelle
-$deleted = DB::table('tasks')->where('id', '=', $taskId)->update([
+$deleted = DB::table('users')->where('id', '=', $user_Get_Id)->update([
     'deleted_status' => 0,
     'deleted_byId' => null,
     'deleted_at' => null,
     'updated_status' => 1,
-    'updated_byId' => $sessionId,
+    'updated_byId' => $userId,
     'updated_at' => date('Y-m-d H:i:s')
 ]);
 
@@ -45,19 +47,19 @@ if ($deleted) {
     
     $_SESSION['status'] = [
         'type'      => "success",
-        'msg'      => "Görev Geri Alındı",
+        'msg'      => "Kullanıcı Geri Alındı",
     ];
 
-    header("Location: ../index.php"); exit;
+    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
 
 } else {
 
     $_SESSION['status'] = [
         'type'      => "error",
-        'msg'      => "Görev Geri Alınamadı",
+        'msg'      => "Kullanıcı Geri Alınamadı",
     ];
 
-    header("Location: ../index.php"); exit;
+    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
     
 }
 

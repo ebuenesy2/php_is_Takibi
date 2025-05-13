@@ -4,7 +4,7 @@ require_once 'config/about.php';
 require_once 'config/Database.php';
 
 // Giriş kontrolü
-if (!isset($_SESSION['user'])) {  header("Location: ../views/login.php"); exit; }
+if (!isset($_SESSION['user'])) {  header("Location: views/login.php"); exit; }
 
 //! --- Status Durum
 $status = isset($_SESSION['status']) ? $_SESSION['status']  : [];
@@ -89,10 +89,13 @@ else {
 <body class="bg-light">
   <div class="container py-4">
     <h2>Merhaba, <?= htmlspecialchars($user['name']) ?> 👋</h2>
-    <p>İşleriniz aşağıda listelenmiştir:</p>
+    <p>Yapılacaklar Listesi</p>
 
-    <a href="<?=$base_url;?>/views/task_add.php" class="btn btn-success mb-3">Yeni İş Ekle</a>
-    <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger mb-3">Çıkış Yap</a>
+    <div class="mb-3">
+      <a href="<?=$base_url;?>/views/task_add.php" class="btn btn-success">Yeni İş Ekle</a>
+      <a href="<?=$base_url;?>/views/userList.php" class="btn btn-info">Kullanıcı Listesi</a>
+      <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger">Çıkış Yap</a>
+    </div>
 
 
     <?php if ($userRole == 'admin' ) { ?> 
@@ -112,7 +115,7 @@ else {
        <button type="submit" class="btn btn-primary">Kullanıcı Ara</button>
     </form>
 
-    <a href="<?=$base_url;?>/views/userList.php" class="btn btn-info mt-3">Kullanıcı Listesi</a>
+    
 
     <?php } ?>
 
@@ -163,11 +166,11 @@ else {
                 <a href="<?=$base_url;?>/views/task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
                 
                 <?php if ($status_where != 'Arşivlenen' || $userRole == 'admin' ) { ?> 
-                <a href="<?=$base_url;?>/views/task_delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+                <a href="<?=$base_url;?>/controllers/task_delete_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
                 <?php } ?>
 
                 <?php if ($status_where == 'Arşivlenen') { ?> 
-                <a href="<?=$base_url;?>/views/task_back.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
+                <a href="<?=$base_url;?>/controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
                 <?php } ?>
 
               </td>

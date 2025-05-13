@@ -9,10 +9,11 @@ $user = $_SESSION['user'];
 
 $userId = $user['id'];
 $userRole = $user['role'];
-$taskId = $_GET['id'] ?? 0;
 //echo "userRole: "; echo $userRole; die();
 
+//! Gelen Veri
 $taskId = $_GET['id'] ?? 0;
+// echo "taskId:"; echo $taskId; die();
 
 // Güvenlik kontrolü: sadece kendi görevini silebilir
 $task = DB::table('tasks')->where('id', '=', $taskId)->get();
@@ -40,7 +41,7 @@ if( $task[0]['deleted_status'] == 0 ) {
         'deleted_byId' => $userId,
         'deleted_at' => date('Y-m-d H:i:s'),
         'updated_status' => 1,
-        'updated_byId' => $sessionId,
+        'updated_byId' => $userId,
         'updated_at' => date('Y-m-d H:i:s')
     ]);
 

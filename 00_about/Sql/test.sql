@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 13 May 2025, 15:24:23
+-- Üretim Zamanı: 13 May 2025, 15:24:26
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -24,15 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tablo için tablo yapısı `tasks`
+-- Tablo için tablo yapısı `test`
 --
 
-CREATE TABLE `tasks` (
+CREATE TABLE `test` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `title` text NOT NULL,
-  `description` text NOT NULL,
-  `status` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_byId` int(11) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -44,27 +41,28 @@ CREATE TABLE `tasks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Tablo döküm verisi `tasks`
+-- Tablo döküm verisi `test`
 --
 
-INSERT INTO `tasks` (`id`, `user_id`, `title`, `description`, `status`, `created_at`, `created_byId`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
-(46, 2, 'sad', 'sadasd', 'Devam Ediliyor', '2025-05-12 12:58:18', 2, '2025-05-13 10:44:54', 1, 2, NULL, 0, NULL),
-(47, 2, 'sadsad', 'dsadasd', 'Devam Ediliyor', '2025-05-12 12:58:34', 2, '2025-05-13 06:50:19', 1, 2, NULL, 0, NULL),
-(48, 2, 'başlık', 'Açıklama', 'Devam Ediliyor', '2025-05-12 13:01:08', 2, '2025-05-12 14:01:08', 0, 0, NULL, 0, NULL),
-(50, 8, 'Başlık Düzenle', 'sadasd', 'Tamamlandı', '2025-05-12 13:16:45', 8, '2025-05-13 11:46:39', 1, 8, NULL, 0, NULL),
-(51, 8, 'sadsad', 'sadsad', 'Planlandı', '2025-05-12 13:22:43', 8, '2025-05-12 14:22:43', 0, 0, NULL, 0, NULL),
-(54, 8, 'Son', 'Açıklama', 'Devam Ediliyor', '2025-05-13 07:18:48', 8, '2025-05-13 08:18:48', 0, 0, NULL, 0, NULL),
-(55, 8, 'Son - Test', 'sadsad', 'Devam Ediliyor', '2025-05-13 09:58:50', 8, '2025-05-13 11:44:58', 1, 2, NULL, 0, NULL),
-(56, 3, 'Deneme', 'Açıklama', 'Devam Ediliyor', '2025-05-13 11:59:13', 3, '2025-05-13 12:59:13', 0, 0, NULL, 0, NULL);
+INSERT INTO `test` (`id`, `title`, `created_at`, `created_byId`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
+(47, 'title güncelle', '2025-05-12 12:58:34', 2, '2025-05-13 07:47:44', 1, 1, NULL, 1, NULL),
+(48, 'başlık', '2025-05-12 13:01:08', 2, '2025-05-12 14:01:08', 0, 0, NULL, 0, NULL),
+(49, 'sadsad --  Test', '2025-05-12 13:13:34', 2, '2025-05-12 14:28:33', 1, 2, NULL, 0, NULL),
+(50, 'Başlık Düzenle', '2025-05-12 13:16:45', 8, '2025-05-13 07:23:58', 1, 8, NULL, 0, NULL),
+(51, 'sadsad', '2025-05-12 13:22:43', 8, '2025-05-12 14:22:43', 0, 0, NULL, 0, NULL),
+(53, 'Arşivle cxxx', '2025-05-12 13:24:05', 8, '2025-05-13 06:24:12', 1, 8, NULL, 0, NULL),
+(54, 'Son', '2025-05-13 07:18:48', 8, '2025-05-13 08:18:48', 0, 0, NULL, 0, NULL),
+(55, 'title add', '2025-05-13 07:41:11', 1, '2025-05-13 08:41:11', 0, 0, NULL, 0, NULL),
+(56, 'title add', '2025-05-13 09:51:57', 1, '2025-05-13 10:51:57', 0, 0, NULL, 0, NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
 --
 
 --
--- Tablo için indeksler `tasks`
+-- Tablo için indeksler `test`
 --
-ALTER TABLE `tasks`
+ALTER TABLE `test`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -72,9 +70,9 @@ ALTER TABLE `tasks`
 --
 
 --
--- Tablo için AUTO_INCREMENT değeri `tasks`
+-- Tablo için AUTO_INCREMENT değeri `test`
 --
-ALTER TABLE `tasks`
+ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 COMMIT;
 

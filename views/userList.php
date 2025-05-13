@@ -43,8 +43,9 @@ $status_where = $_GET['status'] ?? 'Tüm';
 
 // Kullanıcı Listesi
 $users = DB::table('users')
+        ->leftJoin('departman', 'departman.id', '=', 'users.departman')
         ->leftJoin('users as updated_User ', 'users.updated_byId', '=', 'updated_User.id')
-        ->select('users.*',  'updated_User.name as updated_User_name');
+        ->select('users.*',  'updated_User.name as updated_User_name', 'departman.title as departmanTitle' );
 
 if ($status_where == 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 1); }
 else if ($status_where != 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 0); }
@@ -100,6 +101,7 @@ $users = $users->orderBy('id', 'DESC')->get();
           <th>Adı</th>
           <th>Soyadı</th>
           <th>Email</th>
+          <th>Departman</th>
           <th>Role</th>
           <th>Oluşturma Tarihi</th>
           <th>Güncelleme Durumu</th>
@@ -115,6 +117,7 @@ $users = $users->orderBy('id', 'DESC')->get();
             <td><?= htmlspecialchars($userInfo['name']) ?></td>
             <td><?= htmlspecialchars($userInfo['surname']) ?></td>
             <td><?= htmlspecialchars($userInfo['email']) ?></td>
+            <td><?= htmlspecialchars($userInfo['departmanTitle']) ?></td>
             <td><?= htmlspecialchars($userInfo['role']) ?></td>
             <td><?= htmlspecialchars($userInfo['created_at']) ?></td>
             <td><?= htmlspecialchars($userInfo['updated_status']) ?></td>

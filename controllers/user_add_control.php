@@ -12,6 +12,7 @@ $name = $_POST['name'] ?? '';
 $surname = $_POST['surname'] ?? '';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
+$user_departmnan = $_POST['user_departmnan'] ?? 0;
 $user_role = $_POST['user_role'] ?? 'user';
 
 if($_POST['password'] != $_POST['repassword'] ) { 
@@ -53,6 +54,7 @@ else {
         'surname' => $surname,
         'email' => $email,
         'password' => $hashedPassword,
+        'departman' => $user_departmnan,
         'role' => $user_role,
         'created_byId'=>null,
     ]); //! Veri Ekleme Son

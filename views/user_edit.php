@@ -19,6 +19,10 @@ $user_Get_Id = $_GET['id'] ?? 0;
 $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
 
+//! Departman
+$departmans = DB::table('departman')->orderBy('title', 'ASC')->get();
+//echo "<pre>"; print_r($departmans); die();
+
   if (count($userFind) == 0 ) {  
   
     $_SESSION['status'] = [
@@ -77,8 +81,23 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
         <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" readonly required >
       </div>
 
+
       <?php if($userRole == 'admin') { ?>
-      <div class="mb-3">
+      <div class="mb-3" style="cursor: pointer;">
+        <label for="user_departmnan" class="form-label">Departman</label>
+       <select name="user_departmnan" id="user_departmnan" class="form-control">
+        <option value="0">Departman Seç</option>
+        <?php foreach ($departmans as $departman) { ?>
+          <option value="<?= $departman['id'] ?>" <?= $user['departman'] == $departman['id'] ? 'selected' : '' ?>>
+            <?= $departman['title'] ?>
+          </option>
+        <?php } ?>
+        </select>
+      </div>
+      <?php } ?>
+
+      <?php if($userRole == 'admin') { ?>
+      <div class="mb-3" style="cursor: pointer;">
         <label for="user_role" class="form-label">Role</label>
         <select name="user_role" id="user_role" class="form-control">
             <option value="user" <?= $user['role'] == 'user'  ? 'selected' : '' ?> >user</option>
@@ -86,6 +105,7 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
         </select>
       </div>
       <?php } ?>
+
 
       <button type="submit" class="btn btn-primary">Kaydet</button>
     </form>

@@ -21,6 +21,7 @@ $user_Get_Id = $_POST['id'] ?? 0;
 $name = $_POST['name'] ?? '';
 $surname = $_POST['surname'] ?? '';
 $email = $_POST['email'] ?? '';
+$user_departmnan = $_POST['user_departmnan'] ?? 0;
 $user_role = $_POST['user_role'] ?? 'user';
 
 //! Kullanıcı Bilgileri
@@ -44,6 +45,7 @@ $updated = DB::table('users')->where('id', '=', $user_Get_Id)->update([
     'name' => $name,
     'surname' => $surname,
     'email' => $email,
+    'departman' => $user_departmnan,
     'role' => $user_role,
     'updated_status' => 1,
     'updated_byId' => $sessionId,

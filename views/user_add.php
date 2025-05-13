@@ -38,6 +38,10 @@ $users=[];
 if($userRole == 'admin') {   $users = DB::table('users')->get(); }
 //echo "<pre>"; print_r($users); die();
 
+//! Departman
+$departmans = DB::table('departman')->orderBy('title', 'ASC')->get();
+//echo "<pre>"; print_r($departmans); die();
+
 
 ?>
 
@@ -85,6 +89,18 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
         <label for="repassword" class="form-label">Şifre Tekrarla</label>
         <input type="password" name="repassword" id="repassword" class="form-control" required>
       </div>
+
+      
+      <div class="mb-3" style="cursor: pointer;">
+        <label for="user_departmnan" class="form-label">Departman</label>
+       <select name="user_departmnan" id="user_departmnan" class="form-control">
+        <option value="0">Departman Seç</option>
+        <?php foreach ($departmans as $departman) { ?>
+          <option value="<?= $departman['id'] ?>" > <?= $departman['title'] ?> </option>
+        <?php } ?>
+        </select>
+      </div>
+
       
       <div class="mb-3">
         <label for="user_role" class="form-label">Role</label>

@@ -9,7 +9,18 @@
 
 ## Özellikleri
 ```
-* 
+* Veritabanı - Ekleme
+* Veritabanı - Ekleme - Son Sayısı
+* Veritabanı - Sil
+* Veritabanı - Güncelle
+* Veritabanı - Ara - First
+* Veritabanı - Ara - Get
+* Veritabanı - Tüm Veriler
+* Veritabanı - Count
+* Veritabanı - OrderBy
+* Veritabanı - Limit
+* Veritabanı - Join - Inner Join ve Left Join
+* Veritabanı - Json
 ```
 
 ## Dosya Oluştur 
@@ -58,6 +69,18 @@ $insert = DB::table('test')->insert([
     'created_byId' => 1,
     'created_at' => date('Y-m-d H:i:s'),
 ]);
+```
+
+### Veri -  Ekleme - Son Id
+```
+// Kaydet
+$insert_Id = DB::table('test')->insertGetId([
+    'title' => 'title add',
+    'created_byId' => 1,
+    'created_at' => date('Y-m-d H:i:s'),
+]);
+
+echo "insert_Id: "; echo $insert_Id; die();
 ```
 
 ## Veri -   Silme

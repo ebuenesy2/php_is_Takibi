@@ -157,6 +157,22 @@ class DB {
     }
     // Veri Ekle  -- Son
 
+    
+    //! Veri Ekle - Son Id
+    public function insertGetId($data) {
+        $columns = implode(", ", array_keys($data));
+        $placeholders = ":" . implode(", :", array_keys($data));
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
+        $stmt = self::$conn->prepare($sql);
+
+        if ($stmt->execute($data)) {
+            return self::$conn->lastInsertId(); // 💡 Son eklenen ID
+        }
+
+        return false;
+    }
+    //! Veri Ekle - Son Id -- Son
+
     // Veri Sil
     public function delete() {
         if (empty($this->wheres)) {

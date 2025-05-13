@@ -193,12 +193,12 @@ else {
             <td><?= htmlspecialchars($task['updated_at']) ?></td>
             <?php if($userRole == 'admin') {  ?> <td><?= htmlspecialchars($task['updated_User_name']) ?></td> <?php } ?>
             
-              <td>
+              <td style="display: flex;gap: 3px;">
                 <a href="<?=$base_url;?>/views/task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
                 
                          
                 <?php if ($status_where == 'Arşivlenen') { ?> 
-                <a href="<?=$base_url;?>/controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');">Geri Al</a>
+                <a href="<?=$base_url;?>/controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');" style="width: max-content;">Geri Al</a>
                 <?php } ?>
 
                 <?php if ($status_where != 'Arşivlenen' || $userRole == 'admin' ) { ?> 

@@ -39,6 +39,11 @@ $userRole = $user['role'];
 $status_where = $_GET['status'] ?? 'Devam Ediliyor'; 
 //echo "status_where: "; echo $status_where; die();
 
+//! Zaman
+$start_date = $_GET['start_date'] ?? null;
+$end_date = $_GET['end_date'] ?? null;
+//echo "zaman:"; echo $end_date; die();
+
 // Kullanıcının görevlerini al
 if($userRole == 'admin') {    
  
@@ -51,8 +56,11 @@ if($userRole == 'admin') {
   if ($status_where != 'tüm' && $status_where != 'Arşivlenen' ) { $tasks = $tasks->where('tasks.status', '=', $status_where); }
   if ($status_where == 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 1); }
   else if ($status_where != 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 0); }
-  
   if ($user_id_get ) { $tasks = $tasks->where('tasks.user_id', '=', $user_id_get); }
+
+  if ($start_date && $end_date) {
+    $tasks = $tasks->where('tasks.created_at', '>=', $start_date . ' 00:00:00')->where('tasks.created_at', '<=', $end_date . ' 23:59:59');
+  }
 
   $tasks = $tasks->orderBy('id', 'DESC')->get();
   //echo "<pre>"; print_r($tasks); die();
@@ -103,27 +111,42 @@ else {
 
     <?php if ($userRole == 'admin' ) { ?> 
       
-    <form action="index.php" method="GET" style="display: flex;gap: 16px;border: 1px solid;padding: 5px;width: max-content;" >
+    <form action="index.php" method="GET" style="display: flex; gap: 16px; flex-wrap: wrap; border: 1px solid #ccc; padding: 10px; width: max-content;">
 
+      <!-- Kullanıcı Seçimi -->
       <div class="d-flex gap-3">
-        <label for="user_id" class="form-label" style="margin: auto;" >Kullanıcı</label>
-        <select name="user_id" id="user_id" class="form-control"  style="cursor: pointer;width: max-content;" selected >
-          <option value="0" style=" cursor: pointer; " <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?> >Hepsi</option>
-          <?php foreach ($users as $user ) { ?>
-            <option value="<?=$user['id'] ?>" style=" cursor: pointer; " <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?> >
-            <?=$user['name'] ?></option>
-          <?php }  ?>
+        <label for="user_id" class="form-label m-auto">Kullanıcı</label>
+        <select name="user_id" id="user_id" class="form-control" style="cursor: pointer;">
+          <option value="0" <?= ($user_id_get == 0) ? 'selected' : '' ?>>Hepsi</option>
+          <?php foreach ($users as $user): ?>
+            <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?>>
+              <?= htmlspecialchars($user['name']) ?>
+            </option>
+          <?php endforeach; ?>
         </select>
       </div>
-       <button type="submit" class="btn btn-primary">Kullanıcı Ara</button>
+
+      <!-- Tarih Aralığı -->
+      <div class="d-flex gap-3">
+        <label for="start_date" class="form-label m-auto">Başlangıç</label>
+        <input type="date" name="start_date" id="start_date" class="form-control" value="<?= $_GET['start_date'] ?? '' ?>">
+
+        <label for="end_date" class="form-label m-auto">Bitiş</label>
+        <input type="date" name="end_date" id="end_date" class="form-control" value="<?= $_GET['end_date'] ?? '' ?>">
+      </div>
+
+      <!-- Gönder Butonu -->
+      <div class="d-flex align-items-center">
+        <button type="submit" class="btn btn-primary">Filtrele</button>
+      </div>
+
     </form>
-
     
-
     <?php } ?>
 
     <br>
     <hr>
+
 
     <a href="index.php?user_id=<?=$user_id_get?>&&status=tüm" class="btn btn-success mb-3">Tüm</a>
     <a href="index.php?user_id=<?=$user_id_get?>" class="btn btn-warning mb-3">Devam Ediliyor</a>

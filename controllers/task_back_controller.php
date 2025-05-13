@@ -20,7 +20,7 @@ $taskId = $_GET['id'] ?? 0;
 $task = DB::table('tasks')->where('id', '=', $taskId)->get();
 //echo "<pre>"; print_r($task); die();
 
-if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
+if ( count($task) > 0   && $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
 
     $_SESSION['status'] = [
         'type'      => "error",
@@ -28,6 +28,17 @@ if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
     ];
 
     header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+}
+
+if(count($task) == 0 ) { 
+
+    $_SESSION['status'] = [
+        'type'      => "error",
+        'msg'      => "Görev Bulunamadı",
+    ];
+
+    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+
 }
 
 

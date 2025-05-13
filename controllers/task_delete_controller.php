@@ -19,7 +19,7 @@ $taskId = $_GET['id'] ?? 0;
 $task = DB::table('tasks')->where('id', '=', $taskId)->get();
 //echo "<pre>"; print_r($task); die();
 
-if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
+if (count($task) > 0 && $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
 
     $_SESSION['status'] = [
         'type'      => "error",
@@ -29,10 +29,20 @@ if (!$task || $task[0]['user_id'] != $userId && $user['role'] =='user' ) {
     header("Location: ../index.php"); exit;
 }
 
+if(count($task) == 0 ) { 
+
+    $_SESSION['status'] = [
+        'type'      => "error",
+        'msg'      => "Görev Bulunamadı",
+    ];
+
+    header("Location: ../index.php"); exit;
+
+}
 
 
 // Sil
-if($task[0]['deleted_status'] == 1 && $user['role'] =='admin') { $deleted = DB::table('tasks')->delete($taskId); }
+if($task[0]['deleted_status'] == 1 && $user['role'] =='admin') { $deleted = DB::table('tasks')->where('id','=',$taskId)->delete();}
 if( $task[0]['deleted_status'] == 0 ) {
 
     // Güncelle

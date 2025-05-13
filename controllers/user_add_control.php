@@ -66,11 +66,13 @@ else {
         
         $_SESSION['status'] = [
             'type'      => "success",
-            'msg'      => "Kayıt başarılı. Giriş yapabilirsiniz.",
+            'msg'      => "Kayıt Başarı İle Kayıt Edildi.",
         ];
 
-        if($user_role == 'user') { header("Location: ../views/login.php?role=user");  exit; }
-        if($user_role == 'admin') { header("Location: ../views/login.php");  exit; }
+        header("Location: ../views/userList.php"); exit;
+
+        // if($user_role == 'user') { header("Location: ../views/login.php?role=user");  exit; }
+        // if($user_role == 'admin') { header("Location: ../views/login.php");  exit; }
 
     } else {
 

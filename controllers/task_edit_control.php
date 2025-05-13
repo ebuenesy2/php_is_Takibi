@@ -32,13 +32,24 @@ $status = $_POST['status'] ?? 'Bekliyor';
 $task = DB::table('tasks')->where('id', '=', $taskId)->get();
 //echo "<pre>"; print_r($task); die();
 
-if (!$task || $task[0]['user_id'] != $sessionId && $user['role'] =='user' ) {
+if (count($task) > 0 && $task[0]['user_id'] != $sessionId && $user['role'] =='user' ) {
     $_SESSION['status'] = [
         'type'      => "error",
-        'msg'      => "Yetkiniz yoktur. - Silimezsiniz.",
+        'msg'      => "Yetkiniz yoktur. - Düzenleyemezsiniz.",
     ];
 
     header("Location: ../index.php"); exit;
+}
+
+if(count($task) == 0 ) { 
+
+    $_SESSION['status'] = [
+        'type'      => "error",
+        'msg'      => "Görev Bulunamadı",
+    ];
+
+    header("Location: ../index.php"); exit;
+
 }
 
 // Güncelle

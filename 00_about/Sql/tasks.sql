@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 13 May 2025, 15:24:23
+-- Üretim Zamanı: 13 May 2025, 16:16:57
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -48,7 +48,7 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `user_id`, `title`, `description`, `status`, `created_at`, `created_byId`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
-(46, 2, 'sad', 'sadasd', 'Devam Ediliyor', '2025-05-12 12:58:18', 2, '2025-05-13 10:44:54', 1, 2, NULL, 0, NULL),
+(46, 2, 'sad', 'sadasd', 'Devam Ediliyor', '2025-05-12 12:58:18', 2, '2025-05-12 10:44:54', 1, 2, NULL, 0, NULL),
 (47, 2, 'sadsad', 'dsadasd', 'Devam Ediliyor', '2025-05-12 12:58:34', 2, '2025-05-13 06:50:19', 1, 2, NULL, 0, NULL),
 (48, 2, 'başlık', 'Açıklama', 'Devam Ediliyor', '2025-05-12 13:01:08', 2, '2025-05-12 14:01:08', 0, 0, NULL, 0, NULL),
 (50, 8, 'Başlık Düzenle', 'sadasd', 'Tamamlandı', '2025-05-12 13:16:45', 8, '2025-05-13 11:46:39', 1, 8, NULL, 0, NULL),

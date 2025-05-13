@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 13 May 2025, 15:24:18
+-- Üretim Zamanı: 13 May 2025, 16:16:54
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -50,7 +50,7 @@ INSERT INTO `departman` (`id`, `title`, `created_at`, `created_byId`, `updated_a
 (3, 'TEKNİK HİZMETLER', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
 (4, 'İLETİŞİM DESTEK', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
 (5, 'SOSYAL MEDYA', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
-(6, 'DİZGİ-GRAFİK BİRİMİ', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL);
+(7, 'İNTERNET HİZMETLER', '2025-05-13 13:48:42', NULL, '2025-05-13 13:48:42', 0, 0, NULL, 0, NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -70,7 +70,7 @@ ALTER TABLE `departman`
 -- Tablo için AUTO_INCREMENT değeri `departman`
 --
 ALTER TABLE `departman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

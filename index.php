@@ -59,7 +59,7 @@ if($userRole == 'admin') {
   
   // Kullanıcının bilgileri al
   $users=[];
-  if($userRole == 'admin') {   $users = DB::table('users')->orderBy('name', 'ASC')->get(); }
+  if($userRole == 'admin') {   $users = DB::table('users')->where('users.deleted_status', '=', 0)->orderBy('name', 'ASC')->get(); }
   //echo "<pre>"; print_r($users); die();
   
 }

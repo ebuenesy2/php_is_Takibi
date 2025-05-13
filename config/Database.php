@@ -53,6 +53,51 @@ class DB {
     }
     
 
+    //! First - Ara
+    public function first() {
+        $result = $this->get();
+        return $result[0] ?? null;
+    }
+
+
+    //! Count - Sayısı
+    public function count() {
+        $sql = "SELECT COUNT(*) as count FROM {$this->table}";
+        
+        if (!empty($this->wheres)) {
+            $whereClauses = array_map(fn($w) => "{$w[0]} {$w[1]} ?", $this->wheres);
+            $sql .= " WHERE " . implode(" AND ", $whereClauses);
+        }
+
+        $stmt = self::$conn->prepare($sql);
+        $stmt->execute(array_column($this->wheres, 2));
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC)['count'] ?? 0;
+    }
+
+
+    //! OrderBy ve Limit
+    private $orderBy;
+    private $limit;
+    private $offset;
+
+    public function orderBy($column, $direction = 'ASC') {
+        $this->orderBy = "$column $direction";
+        return $this;
+    }
+
+    public function limit($number) {
+        $this->limit = (int)$number;
+        return $this;
+    }
+    
+
+    public function offset($number) {
+        $this->offset = (int)$number;
+        return $this;
+    }
+    //! OrderBy ve Limit --- Son
+
     
     //! Where Ara
     private $wheres = []; // where koşullarını tutmak için
@@ -61,37 +106,48 @@ class DB {
         $this->wheres[] = [$column, $operator, $value];
         return $this;
     }
+    //! Where Ara -- Son
 
-    // Tüm verileri getir
-    public function get() {
+    // Tüm verileri 
+    public function get($asJson = false) {
         $sql = "SELECT " . implode(', ', $this->selects) . " FROM {$this->table}";
-    
+
         if (!empty($this->joins)) {
             $sql .= ' ' . implode(' ', $this->joins);
         }
-    
+
         if (!empty($this->wheres)) {
-            $whereClauses = array_map(function($w) {
-                return "{$w[0]} {$w[1]} ?";
-            }, $this->wheres);
-    
+            $whereClauses = array_map(fn($w) => "{$w[0]} {$w[1]} ?", $this->wheres);
             $sql .= " WHERE " . implode(" AND ", $whereClauses);
         }
-    
+
+        if ($this->orderBy) {
+            $sql .= " ORDER BY " . $this->orderBy;
+        }
+
+        if ($this->limit) {
+            $sql .= " LIMIT " . $this->limit;
+        }
+
+        if ($this->offset) {
+            $sql .= " OFFSET " . $this->offset;
+        }
+
         $stmt = self::$conn->prepare($sql);
-    
-        $values = array_map(function($w) {
-            return $w[2];
-        }, $this->wheres);
-    
+
+        $values = array_map(fn($w) => $w[2], $this->wheres);
         $stmt->execute($values);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $asJson ? json_encode($results, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) : $results;
     }
-    
+    // Tüm veriler - Son
 
     
 
-    // Veri ekle
+
+    // Veri Ekle
     public function insert($data) {
         $columns = implode(", ", array_keys($data));
         $placeholders = ":" . implode(", :", array_keys($data));
@@ -99,15 +155,31 @@ class DB {
         $stmt = self::$conn->prepare($sql);
         return $stmt->execute($data);
     }
+    // Veri Ekle  -- Son
 
-    // Veri sil
-    public function delete($id) {
-        $sql = "DELETE FROM {$this->table} WHERE id = :id";
+    // Veri Sil
+    public function delete() {
+        if (empty($this->wheres)) {
+            throw new Exception("Silme işlemi için 'where' koşulu gereklidir.");
+        }
+
+        $whereClauses = [];
+        foreach ($this->wheres as $index => $w) {
+            $whereClauses[] = "{$w[0]} {$w[1]} :where_{$index}";
+        }
+
+        $sql = "DELETE FROM {$this->table} WHERE " . implode(" AND ", $whereClauses);
         $stmt = self::$conn->prepare($sql);
-        return $stmt->execute(['id' => $id]);
-    }
 
-    // Verileri güncelle
+        foreach ($this->wheres as $index => $w) {
+            $stmt->bindValue(":where_{$index}", $w[2]);
+        }
+
+        return $stmt->execute();
+    }
+    // Veri Sil -- Son
+
+    // Verileri Güncelle
     public function update($data) {
         if (empty($this->wheres)) {
             throw new Exception("Güncelleme işlemi için 'where' koşulu gereklidir.");
@@ -139,6 +211,7 @@ class DB {
 
         return $stmt->execute();
     }
+    // Verileri Güncelle -- Son
 
   
 

@@ -136,8 +136,9 @@ else {
       </div>
 
       <!-- Gönder Butonu -->
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center gap-3">
         <button type="submit" class="btn btn-primary">Filtrele</button>
+        <a href="<?=$base_url;?>/controllers/pdf_olustur.php" class="btn btn-success" >PDF Olarak İndir</a>
       </div>
 
     </form>

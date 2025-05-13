@@ -73,9 +73,10 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">E-posta</label>
-        <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required>
+        <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" readonly required >
       </div>
 
+      <?php if($userRole == 'admin') { ?>
       <div class="mb-3">
         <label for="user_role" class="form-label">Role</label>
         <select name="user_role" id="user_role" class="form-control">
@@ -83,6 +84,7 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
             <option value="admin" <?= $user['role'] == 'admin'  ? 'selected' : '' ?> >admin</option>
         </select>
       </div>
+      <?php } ?>
 
       <button type="submit" class="btn btn-primary">Kaydet</button>
     </form>

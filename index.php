@@ -44,8 +44,9 @@ if($userRole == 'admin') {
  
  $tasks = DB::table('tasks')
   ->join('users as user_id_user', 'tasks.user_id', '=', 'user_id_user.id')
+  ->leftJoin('departman', 'departman.id', '=', 'user_id_user.departman')
   ->leftJoin('users as updated_User ', 'tasks.updated_byId', '=', 'updated_User.id')
-  ->select('tasks.*', 'user_id_user.name as user_name', 'updated_User.name as updated_User_name');
+  ->select('tasks.*', 'user_id_user.name as user_name', 'user_id_user.surname as user_surname', 'updated_User.name as updated_User_name','departman.title as departmanTitle');
 
   if ($status_where != 'tüm' && $status_where != 'Arşivlenen' ) { $tasks = $tasks->where('tasks.status', '=', $status_where); }
   if ($status_where == 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 1); }
@@ -141,7 +142,9 @@ else {
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <?php if($userRole == 'admin') {  ?>  <th>Kullanıcı</th> <?php } ?>
+          <?php if($userRole == 'admin') {  ?>  <th>Adı</th> <?php } ?>
+          <?php if($userRole == 'admin') {  ?>  <th>Soyadı</th> <?php } ?>
+          <?php if($userRole == 'admin') {  ?>  <th>Departman</th> <?php } ?>
           <th>Başlık</th>
           <th>Açıklama</th>
           <th>Durum</th>
@@ -156,6 +159,8 @@ else {
         <?php foreach ($tasks as $task): ?>
           <tr>
             <?php if($userRole == 'admin') {  ?>  <td><?= htmlspecialchars($task['user_name']) ?></td> <?php } ?>
+            <?php if($userRole == 'admin') {  ?>  <td><?= htmlspecialchars($task['user_surname']) ?></td> <?php } ?>
+            <?php if($userRole == 'admin') {  ?>  <td><?= htmlspecialchars($task['departmanTitle']) ?></td> <?php } ?>
             <td><?= htmlspecialchars($task['title']) ?></td>
             <td><?= htmlspecialchars($task['description']) ?></td>
             <td><?= htmlspecialchars($task['status']) ?></td>

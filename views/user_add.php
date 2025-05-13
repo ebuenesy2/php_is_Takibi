@@ -62,7 +62,7 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
     <?php } ?>
     <!-- Alert Son -->
 
-    <form action="../controllers/register_control.php" method="POST">
+    <form action="../controllers/user_add_control.php" method="POST">
 
       <div class="mb-3">
         <label for="name" class="form-label">Ad</label>

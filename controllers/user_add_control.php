@@ -14,21 +14,14 @@ $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 $user_role = $_POST['user_role'] ?? 'user';
 
-// Alanlar dolu mu kontrol et
-if (empty($name) || empty($email) || empty($password)) {
-    header("Location: register.php?error=" . urlencode("Lütfen tüm alanları doldurun."));
-    exit;
-}
-
-
-if($_POST['password'] != $_POST['repassword'] ) {
+if($_POST['password'] != $_POST['repassword'] ) { 
     
     $_SESSION['status'] = [
         'type'      => "error",
         'msg'      => "Sifreler Uyuşmuyor",
     ];
 
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+    header("Location: ../views/user_add.php"); exit;
 
 }
 else {
@@ -46,7 +39,7 @@ else {
             'msg'      => "Bu e-posta zaten kayıtlıdır.",
         ];
 
-        header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+        header("Location: ../views/user_add.php"); exit;
 
     }
 
@@ -87,7 +80,7 @@ else {
             'msg'      => "Kayıt başarısız. Lütfen tekrar deneyin.",
         ];
 
-        header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+        header("Location: ../views/user_add.php"); exit;
 
     }
 

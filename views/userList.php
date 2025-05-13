@@ -73,7 +73,7 @@ $users = $users->orderBy('id', 'DESC')->get();
 
 
     <div class="mb-3">
-      <a href="<?=$base_url;?>/views/user_register.php" class="btn btn-success">Yeni Kişi Ekle</a>
+      <a href="<?=$base_url;?>/views/user_add.php" class="btn btn-success">Yeni Kişi Ekle</a>
       <a href="<?=$base_url;?>/index.php" class="btn btn-info">Yapılacaklar Listesi</a>
       <a href="<?=$base_url;?>/views/logout.php" class="btn btn-danger">Çıkış Yap</a>
     </div>

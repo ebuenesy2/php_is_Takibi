@@ -7,12 +7,6 @@ require_once '../config/Database.php';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
-// Alan kontrolü
-if (empty($email) || empty($password)) {
-    header("Location: ../views/login.php?error=" . urlencode("Lütfen tüm alanları doldurun."));
-    exit;
-}
-
 
 // Kullanıcıyı veritabanında ara
 $user = DB::table('users')->where('email', '=', $email)->get();
@@ -40,7 +34,13 @@ if (count($user) === 1 && password_verify($password, $user[0]['password'])) {
     header("Location: ../index.php"); exit;
     
 } else {
-    header("Location: ../views/login.php?error=" . urlencode("Geçersiz Giriş"));
-    exit;
+
+    $_SESSION['status'] = [
+        'type'      => "error",
+        'msg'      => "Geçersiz Giriş",
+    ];
+
+    header("Location: ../views/login.php"); exit;
+    
 }
 ?>

@@ -23,8 +23,8 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 
 
 // Sil
-if($userFind[0]['deleted_status'] == 1 && $user['role'] =='admin') { $deleted = DB::table('users')->delete($user_Get_Id); }
-if( $userFind[0]['deleted_status'] == 0 ) {
+if( count($userFind) > 0 && $userFind[0]['deleted_status'] == 1 && $user['role'] =='admin') { $deleted = DB::table('users')->where('id','=',$user_Get_Id)->delete(); }
+if( count($userFind) > 0 && $userFind[0]['deleted_status'] == 0 ) {
 
     // Güncelle
     $deleted = DB::table('users')->where('id', '=', $user_Get_Id)->update([
@@ -35,6 +35,17 @@ if( $userFind[0]['deleted_status'] == 0 ) {
         'updated_byId' => $userId,
         'updated_at' => date('Y-m-d H:i:s')
     ]);
+
+}
+if(count($userFind) == 0 ) { 
+
+    $_SESSION['status'] = [
+        'type'      => "error",
+        'msg'      => "Kullanıcı Bulunamadı",
+    ];
+
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
+    if($user['role'] =='user') { header("Location: ../index.php"); exit; }
 
 }
 

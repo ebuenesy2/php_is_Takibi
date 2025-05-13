@@ -27,6 +27,17 @@ $user_role = $_POST['user_role'] ?? 'user';
 $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
 
+if (count($userFind) == 0 ) {  
+  
+    $_SESSION['status'] = [
+      'type'      => "error",
+      'msg'      => "Kullanıcı Bulunamadı",
+    ];
+
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
+    if($user['role'] =='user') { header("Location: ../index.php"); exit; }
+  }
+
 
 // Güncelle
 $updated = DB::table('users')->where('id', '=', $user_Get_Id)->update([

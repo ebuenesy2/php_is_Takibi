@@ -16,17 +16,18 @@ $user_Get_Id = $_GET['id'] ?? 0;
 //echo "user_Get_Id:"; echo $user_Get_Id; die();
 
 //! Kullanıcı Bilgileri
-$userFind = DB::table('users')->where('id', '=', $user_Get_Id)->orderBy('name', 'ASC')->get();
+$userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
 
-  if (!$userFind) {  
+  if (count($userFind) == 0 ) {  
   
     $_SESSION['status'] = [
       'type'      => "error",
       'msg'      => "Kullanıcı Bulunamadı",
     ];
 
-    header("Location: " . $_SERVER['HTTP_REFERER']); exit;
+    if($user['role'] =='admin') { header("Location: ../views/userList.php"); exit;    }
+    if($user['role'] =='user') { header("Location: ../index.php"); exit; }
   }
 
   $user = $userFind[0]; //! Kullanıcı Bilgileri

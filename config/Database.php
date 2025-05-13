@@ -7,10 +7,15 @@ class DB {
     public static function connect() {
         if (!self::$conn) {
             try {
-                $host = "localhost";
-                $dbname = "is_takibi";
-                $username = "root";
-                $password = "";
+                // $host = "localhost";
+                // $dbname = "is_takibi";
+                // $username = "root";
+                // $password = "";
+
+                $host = "84.252.81.8";
+                $dbname = "yildixkn_task_test";
+                $username = "yildixkn_root";
+                $password = "sc2+(]tQtaLD";
 
                 self::$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

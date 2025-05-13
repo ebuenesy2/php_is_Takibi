@@ -138,7 +138,7 @@ else {
       <!-- Gönder Butonu -->
       <div class="d-flex align-items-center gap-3">
         <button type="submit" class="btn btn-primary">Filtrele</button>
-        <a href="<?=$base_url;?>/controllers/pdf_olustur.php" class="btn btn-success" >PDF Olarak İndir</a>
+        <a href="<?=$base_url;?>/controllers/pdf_olustur.php?user_id=<?=$user_id_get?>&&status=<?=$status_where?>&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-success" >PDF Olarak İndir</a>
       </div>
 
     </form>
@@ -149,11 +149,11 @@ else {
     <hr>
 
 
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=tüm" class="btn btn-success mb-3">Tüm</a>
-    <a href="index.php?user_id=<?=$user_id_get?>" class="btn btn-warning mb-3">Devam Ediliyor</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=Planlandı" class="btn btn-danger mb-3">Planlandı</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=Tamamlandı" class="btn btn-info mb-3">Tamamlandı</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=Arşivlenen" class="btn btn-danger mb-3">Arşivlenen</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=tüm&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-success mb-3">Tüm</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-warning mb-3">Devam Ediliyor</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=Planlandı&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-danger mb-3">Planlandı</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=Tamamlandı&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-info mb-3">Tamamlandı</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&status=Arşivlenen&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-danger mb-3">Arşivlenen</a>
 
       <!-- Alert -->
       <?php if (count($status) > 0 &&  $status['type'] == 'error' ) { ?>

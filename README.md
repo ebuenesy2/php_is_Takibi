@@ -1,5 +1,11 @@
 # Php Mvc İş Takibi
 
+
+## Yapılacaklar
+```
+config - > ayarları güncelle
+```
+
 ## Özellikler
 ```
 * İş Takip Listesi - [ ekle / güncelle / sil / arşivle ]

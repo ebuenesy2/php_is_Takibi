@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 14 May 2025, 11:32:07
+-- Üretim Zamanı: 14 May 2025, 17:17:36
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -53,7 +53,8 @@ INSERT INTO `test` (`id`, `title`, `created_at`, `created_byId`, `updated_at`, `
 (53, 'Arşivle cxxx', '2025-05-12 13:24:05', 8, '2025-05-13 06:24:12', 1, 8, NULL, 0, NULL),
 (54, 'Son', '2025-05-13 07:18:48', 8, '2025-05-13 08:18:48', 0, 0, NULL, 0, NULL),
 (55, 'title add', '2025-05-13 07:41:11', 1, '2025-05-13 08:41:11', 0, 0, NULL, 0, NULL),
-(56, 'title add', '2025-05-13 09:51:57', 1, '2025-05-13 10:51:57', 0, 0, NULL, 0, NULL);
+(56, 'title add', '2025-05-13 09:51:57', 1, '2025-05-13 10:51:57', 0, 0, NULL, 0, NULL),
+(57, 'title add', '2025-05-14 10:15:28', 1, '2025-05-14 11:15:28', 0, 0, NULL, 0, NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -73,7 +74,7 @@ ALTER TABLE `test`
 -- Tablo için AUTO_INCREMENT değeri `test`
 --
 ALTER TABLE `test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

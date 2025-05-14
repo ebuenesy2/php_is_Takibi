@@ -9,12 +9,12 @@ $offset = ($page - 1) * $perPage;
 $test = DB::table('test')
     ->join('users', 'test.created_byId', '=', 'users.id')
     ->select('test.id', 'test.title', 'users.name as user_name')
-    ->where('test.deleted_status', '=', 0)
+    //->where('test.deleted_status', '=', 0)
     ->orderBy('id', 'ASC')
-    ->limit($perPage)
-    ->offset($offset)
-    //->get();
-    ->get(true); // true = JSON olarak döne
+    //->limit($perPage)
+    //->offset($offset)
+    ->get();
+    //->get(true); // true = JSON olarak döne
 
 
 echo "<pre>"; print_r($test); die();

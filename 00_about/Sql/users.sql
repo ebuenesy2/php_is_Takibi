@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 14 May 2025, 11:32:11
+-- Üretim Zamanı: 14 May 2025, 17:17:39
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -50,7 +50,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `role`, `departman`, `created_byId`, `created_at`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
-(1, 'Admin', 'Soyad', 'admin@admin.com', '$2y$10$CO9NO3J0d57KgcdRQl/zjuZE9cVsJj5I4qyy.DoD92HFwaEMgt26a', 'admin', 1, 1, '2025-05-09 13:28:20', '2025-05-14 09:00:50', 1, 2, NULL, 0, NULL),
+(1, 'Admin', 'Soyad', 'admin@admin.com', '$2y$10$CO9NO3J0d57KgcdRQl/zjuZE9cVsJj5I4qyy.DoD92HFwaEMgt26a', 'admin', 1, 1, '2025-05-09 13:28:20', '2025-05-14 13:03:17', 1, 1, NULL, 0, NULL),
 (2, 'DİZGİ-GRAFİK BİRİMİ - 1', 'Soyad', 'dizi@admin.com', '$2y$10$u4ToOAq0CkLSbHd3ZdmlmuNaTf.TAyRSjj8XKUpqC.lMw70rQ7KaS', 'user', 1, NULL, '2025-05-14 09:01:31', '2025-05-14 09:01:38', 1, 2, NULL, 0, NULL),
 (3, 'DİZGİ-GRAFİK BİRİMİ - 2', 'Soyad', 'dizi2@admin.com', '$2y$10$vNwBcCy34as10zw.v4NBP.vviOe3X0tU2cN6wF8wkYtwxh6tVz4tS', 'user', 1, NULL, '2025-05-14 09:15:19', '2025-05-14 09:15:34', 1, 2, NULL, 0, NULL),
 (4, 'ONLINE & OFFLİNE EĞİTİM - 1', 'Soyad', 'online@admin.com', '$2y$10$ni5yTVtQQsS8F5WQTUnc.OFzspXRbotDD7GBqIGa/1orb5XopMdkK', 'user', 2, NULL, '2025-05-14 09:05:09', '2025-05-14 09:05:09', 0, 0, NULL, 0, NULL),
@@ -61,7 +61,7 @@ INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `role`, `depa
 (9, 'İLETİŞİM DESTEK - 2', 'Soyad', 'iletisim2@admin.com', '$2y$10$.l5HZLaxIMjlDz4MIjGxe.FqRP4Tyc802JXQwOieZwogVHKTni5U.', 'user', 4, NULL, '2025-05-14 09:19:50', '2025-05-14 09:19:50', 0, 0, NULL, 0, NULL),
 (10, 'SOSYAL MEDYA - 1', 'Soyad', 'sosyal_medya@admin.com', '$2y$10$6/t0lp9wdmWZlVsu.V/DB.WmCIKbIaBRCmS5LxDWSjKUPmBld2BIS', 'user', 5, NULL, '2025-05-14 09:02:52', '2025-05-14 09:02:52', 0, 0, NULL, 0, NULL),
 (11, 'SOSYAL MEDYA - 2', 'Soyad', 'sosyal_medya2@admin.com', '$2y$10$0j6iIQ0DOTnChDeWv2H9I.a5iqKp52Zf4VBamHHGbYPNNkb8DQmgC', 'user', 5, NULL, '2025-05-14 09:20:45', '2025-05-14 09:20:45', 0, 0, NULL, 0, NULL),
-(12, 'İNTERNET HİZMETLER - 1', 'Soyad', 'internet@admin.com', '$2y$10$f13DgW1aIvSE9Kp7xpCbK..WA5U.OiK9sNZeAGsIrR8uv.Glupjyu', 'user', 6, NULL, '2025-05-14 09:02:12', '2025-05-14 09:03:59', 1, 2, NULL, 0, NULL),
+(12, 'İNTERNET HİZMETLER - 1', 'Soyad', 'internet@admin.com', '$2y$10$f13DgW1aIvSE9Kp7xpCbK..WA5U.OiK9sNZeAGsIrR8uv.Glupjyu', 'user', 0, NULL, '2025-05-14 09:02:12', '2025-05-14 13:03:27', 1, 12, NULL, 0, NULL),
 (13, 'İNTERNET HİZMETLER - 2', 'Soyad', 'internet2@admin.com', '$2y$10$ZMHW65C3sESfI8OhjtA9mebvJxh7WfUR0KQ23Ygmikn7CedJVsUCK', 'user', 6, NULL, '2025-05-14 09:21:33', '2025-05-14 09:21:33', 0, 0, NULL, 0, NULL);
 
 --

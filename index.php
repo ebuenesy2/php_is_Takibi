@@ -63,7 +63,7 @@ if($userRole == 'admin') {
   if ($departman_id_get ) { $tasks = $tasks->where('departman.id', '=', $departman_id_get); }
 
   if ($start_date && $end_date) {
-    $tasks = $tasks->where('tasks.created_at', '>=', $start_date . ' 00:00:00')->where('tasks.created_at', '<=', $end_date . ' 23:59:59');
+    $tasks = $tasks->where('tasks.updated_at', '>=', $start_date . ' 00:00:00')->where('tasks.updated_at', '<=', $end_date . ' 23:59:59');
   }
 
   $tasks = $tasks->orderBy('id', 'DESC')->get();
@@ -127,7 +127,7 @@ else {
       <div class="d-flex gap-3">
         <label for="user_id" class="form-label m-auto">Kullanıcı</label>
         <select name="user_id" id="user_id" class="form-control" style="cursor: pointer;">
-          <option value="0" <?= ($user_id_get == 0) ? 'selected' : '' ?>>Hepsi</option>
+          <option value="" <?= ($user_id_get == 0) ? 'selected' : '' ?>>Hepsi</option>
           <?php foreach ($users as $user): ?>
             <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id_get) ? 'selected' : '' ?>>
               <?= htmlspecialchars($user['name']) ?>
@@ -141,7 +141,7 @@ else {
       <div class="d-flex gap-3">
         <label for="departman_id" class="form-label m-auto">Departman</label>
         <select name="departman_id" id="departman_id" class="form-control" style="cursor: pointer;">
-          <option value="0" <?= ($departman_id_get == 0) ? 'selected' : '' ?>>Hepsi</option>
+          <option value="" <?= ($departman_id_get == 0) ? 'selected' : '' ?>>Hepsi</option>
           <?php foreach ($departmans as $departman): ?>
             <option value="<?= $departman['id'] ?>" <?= ($departman['id'] == $departman_id_get) ? 'selected' : '' ?>>
               <?= htmlspecialchars($departman['name']) ?>
@@ -157,7 +157,7 @@ else {
         <input type="date" name="start_date" id="start_date" class="form-control" value="<?= $_GET['start_date'] ?? '' ?>">
 
         <label for="end_date" class="form-label m-auto">Bitiş</label>
-        <input type="date" name="end_date" id="end_date" class="form-control" value="<?= $_GET['end_date'] ?? '' ?>">
+        <input type="date" name="end_ddate" id="end_date" class="form-control" value="<?= $_GET['end_date'] ?? '' ?>">
       </div>
       <!-- Tarih Aralığı - Son -->
 
@@ -175,11 +175,11 @@ else {
     <hr>
 
 
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=tüm&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-success mb-3">Tüm</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-warning mb-3">Devam Ediliyor</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=Planlandı&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-danger mb-3">Planlandı</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=Tamamlandı&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-info mb-3">Tamamlandı</a>
-    <a href="index.php?user_id=<?=$user_id_get?>&&status=Arşivlenen&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-danger mb-3">Arşivlenen</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&departman_id=<?=$departman_id_get?>&&status=tüm&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-success mb-3">Tüm</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&departman_id=<?=$departman_id_get?>&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-warning mb-3">Devam Ediliyor</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&departman_id=<?=$departman_id_get?>&&status=Planlandı&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-danger mb-3">Planlandı</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&departman_id=<?=$departman_id_get?>&&status=Tamamlandı&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-info mb-3">Tamamlandı</a>
+    <a href="index.php?user_id=<?=$user_id_get?>&&departman_id=<?=$departman_id_get?>&&status=Arşivlenen&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-danger mb-3">Arşivlenen</a>
 
       <!-- Alert -->
       <?php if (count($status) > 0 &&  $status['type'] == 'error' ) { ?>

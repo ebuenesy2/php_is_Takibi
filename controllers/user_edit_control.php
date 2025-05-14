@@ -54,6 +54,16 @@ $updated = DB::table('users')->where('id', '=', $user_Get_Id)->update([
 
 
 if ($updated) {
+
+    // Session Bilgileri
+    $_SESSION['user'] = [
+        'id' => $user_Get_Id,
+        'name' => $name,
+        'surname' => $surname,
+        'email' => $email,
+        'departman' => $user_departmnan,
+        'role' => $user_role,
+    ];
     
     $_SESSION['status'] = [
         'type'      => "success",

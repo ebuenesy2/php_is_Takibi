@@ -16,7 +16,7 @@ $user = DB::table('users')->where('email', '=', $email)->get();
 if (count($user) === 1 && password_verify($password, $user[0]['password'])) {
 
     
-    // Oturumu başlat
+    // Session Bilgileri
     $_SESSION['user'] = [
         'status'      => $user[0]['deleted_status'] == 0 ? 'active' : 'passive',
         'id'      => $user[0]['id'],

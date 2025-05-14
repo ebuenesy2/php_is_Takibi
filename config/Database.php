@@ -1,26 +1,52 @@
 <?php
+require_once 'about.php'; //! Bilgiler
+//echo  "host:"; echo $host; die();
+
 class DB {
-    private static $conn;
+    
+    private static $base_url; //! Site Url
+  
+    //! Veri Tabanı Bilgileri
+    private static $conn = null;
+    private static $host;
+    private static $dbname;
+    private static $userName;
+    private static $pass;
+
     private $table;
 
+    // Veritabanı ayarlarını otomatik olarak al
+    private static function loadConfig() {
+        global $base_url,$host, $dbname, $userName, $pass;
+
+        self::$base_url = $base_url;
+
+        self::$host = $host;
+        self::$dbname   = $dbname;
+        self::$userName = $userName;
+        self::$pass = $pass;
+    }
+    
     // Veritabanına bağlan
-    public static function connect() {
-        if (!self::$conn) {
+    public static function connect() { 
+        if (self::$conn === null) {
+            self::loadConfig(); // Sayfa çalışınca config otomatik alınır
+
+            //echo "dbname -"; echo self::$userName; echo "-v"; die(); 
+            $dsn = "mysql:host=" . self::$host . ";dbname=" . self::$dbname . ";charset=utf8mb4";
+
             try {
-                // $host = "localhost";
-                // $dbname = "is_takibi";
-                // $username = "root";
-                // $password = "";
-
-                $host = "84.252.81.8";
-                $dbname = "yildixkn_task_test";
-                $username = "yildixkn_root";
-                $password = "sc2+(]tQtaLD";
-
-                self::$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+                self::$conn = new PDO($dsn, self::$userName, self::$pass);
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch(PDOException $e) {
-                die("Bağlantı hatası: " . $e->getMessage());
+            } catch (PDOException $e) {
+                //die("Veritabanı bağlantı hatası: " . $e->getMessage());
+
+                $_SESSION['statusDB'] = [
+                    'type'      => "error",
+                    'msg'      => $e->getMessage(),
+                ];
+
+                header("Location:".self::$base_url."/views/error/db_error.php"); exit;
             }
         }
         return self::$conn;

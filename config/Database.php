@@ -129,6 +129,16 @@ class DB {
     }
     //! OrderBy ve Limit --- Son
 
+
+    //  GROUP BY 
+    private $groupBy; 
+    public function groupBy($column) {
+        $this->groupBy = $column;
+        return $this;
+    }
+
+    //  GROUP BY -- Son
+
     
     //! Where Ara
     private $wheres = []; // where koşullarını tutmak için
@@ -147,9 +157,13 @@ class DB {
             $sql .= ' ' . implode(' ', $this->joins);
         }
 
-        if (!empty($this->wheres)) {
+       if (!empty($this->wheres)) {
             $whereClauses = array_map(fn($w) => "{$w[0]} {$w[1]} ?", $this->wheres);
             $sql .= " WHERE " . implode(" AND ", $whereClauses);
+        }
+
+        if ($this->groupBy) {
+            $sql .= " GROUP BY " . $this->groupBy;
         }
 
         if ($this->orderBy) {
@@ -163,6 +177,7 @@ class DB {
         if ($this->offset) {
             $sql .= " OFFSET " . $this->offset;
         }
+    
 
         $stmt = self::$conn->prepare($sql);
 

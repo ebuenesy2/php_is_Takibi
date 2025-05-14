@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 14 May 2025, 07:40:57
+-- Üretim Zamanı: 14 May 2025, 11:32:11
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -50,11 +50,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `role`, `departman`, `created_byId`, `created_at`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
-(2, 'admin', 'admin', 'admin@admin.com', '$2y$10$CO9NO3J0d57KgcdRQl/zjuZE9cVsJj5I4qyy.DoD92HFwaEMgt26a', 'admin', 1, 1, '2025-05-09 13:28:20', '2025-05-13 12:47:59', 1, 2, NULL, 0, NULL),
-(3, 'enes', 'yildirim', 'user@gmail.com', '$2y$10$CO9NO3J0d57KgcdRQl/zjuZE9cVsJj5I4qyy.DoD92HFwaEMgt26a', 'user', 2, 1, '2025-05-09 13:28:21', '2025-05-13 13:41:52', 1, 2, NULL, 0, NULL),
-(8, 'Api', 'Soyad', 'api@gmail.com', '$2y$10$BwNfi0tvpXJjb5vpWy2ZsOl/lFZ2uHzt38JwH4KlMLxWRyT8Z2B/q', 'user', 4, NULL, '2025-05-12 06:03:39', '2025-05-13 13:47:51', 1, 2, NULL, 0, NULL),
-(17, 'Deneme', 'Soyadı Güncelle', 'sadsad@admin.com', '$2y$10$27oCmRE8.4u9l94okEvZnO4R5Vn3WPPFc63VX14E8fQFaXpaY7A62', 'user', 1, NULL, '2025-05-13 06:17:55', '2025-05-13 13:40:51', 1, 2, NULL, 0, NULL),
-(18, 'eren', 'sadas', 'eren@admin.com', '$2y$10$dV8wPCq81KuhNsEUHEsvKuZmX9Q0Qwlpadce8fLna9bnMPuyKmOFe', 'user', 7, NULL, '2025-05-13 13:49:01', '2025-05-13 13:49:01', 0, 0, NULL, 0, NULL);
+(1, 'Admin', 'Soyad', 'admin@admin.com', '$2y$10$CO9NO3J0d57KgcdRQl/zjuZE9cVsJj5I4qyy.DoD92HFwaEMgt26a', 'admin', 1, 1, '2025-05-09 13:28:20', '2025-05-14 09:00:50', 1, 2, NULL, 0, NULL),
+(2, 'DİZGİ-GRAFİK BİRİMİ - 1', 'Soyad', 'dizi@admin.com', '$2y$10$u4ToOAq0CkLSbHd3ZdmlmuNaTf.TAyRSjj8XKUpqC.lMw70rQ7KaS', 'user', 1, NULL, '2025-05-14 09:01:31', '2025-05-14 09:01:38', 1, 2, NULL, 0, NULL),
+(3, 'DİZGİ-GRAFİK BİRİMİ - 2', 'Soyad', 'dizi2@admin.com', '$2y$10$vNwBcCy34as10zw.v4NBP.vviOe3X0tU2cN6wF8wkYtwxh6tVz4tS', 'user', 1, NULL, '2025-05-14 09:15:19', '2025-05-14 09:15:34', 1, 2, NULL, 0, NULL),
+(4, 'ONLINE & OFFLİNE EĞİTİM - 1', 'Soyad', 'online@admin.com', '$2y$10$ni5yTVtQQsS8F5WQTUnc.OFzspXRbotDD7GBqIGa/1orb5XopMdkK', 'user', 2, NULL, '2025-05-14 09:05:09', '2025-05-14 09:05:09', 0, 0, NULL, 0, NULL),
+(5, 'ONLINE & OFFLİNE EĞİTİM - 2', 'Soyad', 'online2@admin.com', '$2y$10$flWsuR5iVLqCjoaC7ESXMeOaNnIgZ.sEoVoNO/gWcV/n.lLq9aek6', 'user', 2, NULL, '2025-05-14 09:16:44', '2025-05-14 09:16:44', 0, 0, NULL, 0, NULL),
+(6, 'TEKNİK HİZMETLER - 1', 'Soyad', 'teknik@admin.com', '$2y$10$hW4sJj0nmXC.FZlukVxv7.N7.s4OCJ/sn33simpyjeX8JtKNsJtlW', 'user', 3, NULL, '2025-05-14 09:06:01', '2025-05-14 09:06:01', 0, 0, NULL, 0, NULL),
+(7, 'TEKNİK HİZMETLER - 2', 'Soyad', 'teknik2@admin.com', '$2y$10$ZLgZ83bjHozcgemDbJKhEueRODvQvAPTwOTxxW2OHx9uyvRvmTkXu', 'user', 3, NULL, '2025-05-14 09:19:13', '2025-05-14 09:19:13', 0, 0, NULL, 0, NULL),
+(8, 'İLETİŞİM DESTEK - 1', 'Soyad', 'iletisim@admin.com', '$2y$10$CgdN0E4q2VTP6.b8pxtrMuSEy6i34cxKNcwJdmhuyin6/0nRS9rhC', 'user', 4, NULL, '2025-05-14 09:10:08', '2025-05-14 09:10:08', 0, 0, NULL, 0, NULL),
+(9, 'İLETİŞİM DESTEK - 2', 'Soyad', 'iletisim2@admin.com', '$2y$10$.l5HZLaxIMjlDz4MIjGxe.FqRP4Tyc802JXQwOieZwogVHKTni5U.', 'user', 4, NULL, '2025-05-14 09:19:50', '2025-05-14 09:19:50', 0, 0, NULL, 0, NULL),
+(10, 'SOSYAL MEDYA - 1', 'Soyad', 'sosyal_medya@admin.com', '$2y$10$6/t0lp9wdmWZlVsu.V/DB.WmCIKbIaBRCmS5LxDWSjKUPmBld2BIS', 'user', 5, NULL, '2025-05-14 09:02:52', '2025-05-14 09:02:52', 0, 0, NULL, 0, NULL),
+(11, 'SOSYAL MEDYA - 2', 'Soyad', 'sosyal_medya2@admin.com', '$2y$10$0j6iIQ0DOTnChDeWv2H9I.a5iqKp52Zf4VBamHHGbYPNNkb8DQmgC', 'user', 5, NULL, '2025-05-14 09:20:45', '2025-05-14 09:20:45', 0, 0, NULL, 0, NULL),
+(12, 'İNTERNET HİZMETLER - 1', 'Soyad', 'internet@admin.com', '$2y$10$f13DgW1aIvSE9Kp7xpCbK..WA5U.OiK9sNZeAGsIrR8uv.Glupjyu', 'user', 6, NULL, '2025-05-14 09:02:12', '2025-05-14 09:03:59', 1, 2, NULL, 0, NULL),
+(13, 'İNTERNET HİZMETLER - 2', 'Soyad', 'internet2@admin.com', '$2y$10$ZMHW65C3sESfI8OhjtA9mebvJxh7WfUR0KQ23Ygmikn7CedJVsUCK', 'user', 6, NULL, '2025-05-14 09:21:33', '2025-05-14 09:21:33', 0, 0, NULL, 0, NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -74,7 +82,7 @@ ALTER TABLE `users`
 -- Tablo için AUTO_INCREMENT değeri `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

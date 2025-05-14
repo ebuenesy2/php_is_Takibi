@@ -20,7 +20,7 @@ $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
 
 //! Departman
-$departmans = DB::table('departman')->orderBy('title', 'ASC')->get();
+$departmans = DB::table('departman')->orderBy('name', 'ASC')->get();
 //echo "<pre>"; print_r($departmans); die();
 
   if (count($userFind) == 0 ) {  
@@ -89,7 +89,7 @@ $departmans = DB::table('departman')->orderBy('title', 'ASC')->get();
         <option value="0">Departman Seç</option>
         <?php foreach ($departmans as $departman) { ?>
           <option value="<?= $departman['id'] ?>" <?= $user['departman'] == $departman['id'] ? 'selected' : '' ?>>
-            <?= $departman['title'] ?>
+            <?= $departman['name'] ?>
           </option>
         <?php } ?>
         </select>

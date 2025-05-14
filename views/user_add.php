@@ -39,7 +39,7 @@ if($userRole == 'admin') {   $users = DB::table('users')->get(); }
 //echo "<pre>"; print_r($users); die();
 
 //! Departman
-$departmans = DB::table('departman')->orderBy('title', 'ASC')->get();
+$departmans = DB::table('departman')->orderBy('name', 'ASC')->get();
 //echo "<pre>"; print_r($departmans); die();
 
 
@@ -96,7 +96,7 @@ $departmans = DB::table('departman')->orderBy('title', 'ASC')->get();
        <select name="user_departmnan" id="user_departmnan" class="form-control">
         <option value="0">Departman Seç</option>
         <?php foreach ($departmans as $departman) { ?>
-          <option value="<?= $departman['id'] ?>" > <?= $departman['title'] ?> </option>
+          <option value="<?= $departman['id'] ?>" > <?= $departman['name'] ?> </option>
         <?php } ?>
         </select>
       </div>

@@ -45,7 +45,7 @@ $status_where = $_GET['status'] ?? 'Tüm';
 $users = DB::table('users')
         ->leftJoin('departman', 'departman.id', '=', 'users.departman')
         ->leftJoin('users as updated_User ', 'users.updated_byId', '=', 'updated_User.id')
-        ->select('users.*',  'updated_User.name as updated_User_name', 'departman.title as departmanTitle' );
+        ->select('users.*',  'updated_User.name as updated_User_name', 'departman.name as departmanTitle' );
 
 if ($status_where == 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 1); }
 else if ($status_where != 'Arşivlenen') { $users = $users->where('users.deleted_status', '=', 0); }

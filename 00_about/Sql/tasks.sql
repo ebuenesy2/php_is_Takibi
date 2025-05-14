@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 13 May 2025, 17:29:40
+-- Üretim Zamanı: 14 May 2025, 11:32:04
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -48,14 +48,18 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `user_id`, `title`, `description`, `status`, `created_at`, `created_byId`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
-(46, 2, 'sad', 'sadasd', 'Devam Ediliyor', '2025-05-12 12:58:18', 2, '2025-05-12 10:44:54', 1, 2, NULL, 0, NULL),
-(47, 2, 'sadsad', 'dsadasd', 'Devam Ediliyor', '2025-05-12 12:58:34', 2, '2025-05-13 06:50:19', 1, 2, NULL, 0, NULL),
-(48, 2, 'başlık', 'Açıklama', 'Devam Ediliyor', '2025-05-12 13:01:08', 2, '2025-05-12 14:01:08', 0, 0, NULL, 0, NULL),
-(50, 8, 'Başlık Düzenle', 'sadasd', 'Tamamlandı', '2025-05-12 13:16:45', 8, '2025-05-13 11:46:39', 1, 8, NULL, 0, NULL),
-(51, 8, 'sadsad', 'sadsad', 'Planlandı', '2025-05-12 13:22:43', 8, '2025-05-12 14:22:43', 0, 0, NULL, 0, NULL),
-(54, 8, 'Son', 'Açıklama', 'Devam Ediliyor', '2025-05-13 07:18:48', 8, '2025-05-13 08:18:48', 0, 0, NULL, 0, NULL),
-(55, 8, 'Son - Test', 'sadsad', 'Devam Ediliyor', '2025-05-13 09:58:50', 8, '2025-05-13 11:44:58', 1, 2, NULL, 0, NULL),
-(56, 3, 'Deneme', 'Açıklama', 'Devam Ediliyor', '2025-05-13 11:59:13', 3, '2025-05-13 12:59:13', 0, 0, NULL, 0, NULL);
+(57, 2, 'Dizi 1', 'Görev -  DİZGİ-GRAFİK BİRİMİ - 1', 'Tamamlandı', '2025-05-14 08:23:10', 2, '2025-05-14 09:31:42', 1, 1, NULL, 0, NULL),
+(58, 3, 'Dizi 2', 'Görev -  DİZGİ-GRAFİK BİRİMİ - 2', 'Planlandı', '2025-05-14 08:23:26', 2, '2025-05-14 09:23:26', 0, 0, NULL, 0, NULL),
+(59, 4, 'ONLINE & OFFLİNE EĞİTİM - 1', 'Görev -  ONLINE & OFFLİNE EĞİTİM - 1', 'Devam Ediliyor', '2025-05-14 08:26:38', 2, '2025-05-14 09:31:36', 1, 1, NULL, 0, NULL),
+(60, 5, 'ONLINE & OFFLİNE EĞİTİM - 2', 'Görev -  ONLINE & OFFLİNE EĞİTİM - 2', 'Planlandı', '2025-05-14 08:26:48', 2, '2025-05-14 09:26:48', 0, 0, NULL, 0, NULL),
+(61, 6, 'TEKNİK HİZMETLER - 1', 'Görev -  TEKNİK HİZMETLER - 1', 'Tamamlandı', '2025-05-14 08:27:11', 2, '2025-05-14 09:31:31', 1, 1, NULL, 0, NULL),
+(62, 7, 'TEKNİK HİZMETLER - 2', 'Görev -  TEKNİK HİZMETLER - 2', 'Planlandı', '2025-05-14 08:27:28', 2, '2025-05-14 09:27:28', 0, 0, NULL, 0, NULL),
+(63, 12, 'İLETİŞİM DESTEK - 1', 'Görev -  İLETİŞİM DESTEK - 1', 'Tamamlandı', '2025-05-14 08:28:18', 2, '2025-05-14 09:31:25', 1, 1, NULL, 0, NULL),
+(64, 9, 'İLETİŞİM DESTEK - 2', 'Görev -  İLETİŞİM DESTEK - 2', 'Planlandı', '2025-05-14 08:28:32', 2, '2025-05-14 09:28:32', 0, 0, NULL, 0, NULL),
+(65, 10, 'SOSYAL MEDYA - 1 ', 'Görev -  SOSYAL MEDYA - 1 ', 'Devam Ediliyor', '2025-05-14 08:28:49', 2, '2025-05-14 09:31:03', 1, 1, NULL, 0, NULL),
+(66, 11, 'SOSYAL MEDYA - 2', 'Görev -  SOSYAL MEDYA - 2', 'Planlandı', '2025-05-14 08:29:02', 2, '2025-05-14 09:29:02', 0, 0, NULL, 0, NULL),
+(67, 12, 'İNTERNET HİZMETLER - 1', 'Görev -  İNTERNET HİZMETLER - 1', 'Devam Ediliyor', '2025-05-14 08:29:18', 2, '2025-05-14 09:31:00', 1, 1, NULL, 0, NULL),
+(68, 13, 'İNTERNET HİZMETLER - 2', 'Görev -  İNTERNET HİZMETLER - 2', 'Planlandı', '2025-05-14 08:29:48', 2, '2025-05-14 09:29:48', 0, 0, NULL, 0, NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -75,7 +79,7 @@ ALTER TABLE `tasks`
 -- Tablo için AUTO_INCREMENT değeri `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

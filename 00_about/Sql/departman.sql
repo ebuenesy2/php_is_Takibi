@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 13 May 2025, 17:29:36
+-- Üretim Zamanı: 14 May 2025, 11:32:00
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `departman` (
   `id` int(11) NOT NULL,
-  `title` text NOT NULL,
+  `name` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_byId` int(11) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -44,13 +44,13 @@ CREATE TABLE `departman` (
 -- Tablo döküm verisi `departman`
 --
 
-INSERT INTO `departman` (`id`, `title`, `created_at`, `created_byId`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
+INSERT INTO `departman` (`id`, `name`, `created_at`, `created_byId`, `updated_at`, `updated_status`, `updated_byId`, `deleted_at`, `deleted_status`, `deleted_byId`) VALUES
 (1, 'DİZGİ-GRAFİK BİRİMİ', '2025-05-13 13:22:10', NULL, '2025-05-13 13:22:10', 0, 0, NULL, 0, NULL),
 (2, 'ONLINE & OFFLİNE EĞİTİM', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
 (3, 'TEKNİK HİZMETLER', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
 (4, 'İLETİŞİM DESTEK', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
 (5, 'SOSYAL MEDYA', '2025-05-13 13:23:23', NULL, '2025-05-13 13:23:23', 0, 0, NULL, 0, NULL),
-(7, 'İNTERNET HİZMETLER', '2025-05-13 13:48:42', NULL, '2025-05-13 13:48:42', 0, 0, NULL, 0, NULL);
+(6, 'İNTERNET HİZMETLER', '2025-05-13 13:48:42', NULL, '2025-05-13 13:48:42', 0, 0, NULL, 0, NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler

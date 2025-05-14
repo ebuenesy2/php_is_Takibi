@@ -49,7 +49,7 @@ $end_date = $_GET['end_date'] ?? null;
   ->join('users as user_id_user', 'tasks.user_id', '=', 'user_id_user.id')
   ->leftJoin('departman', 'departman.id', '=', 'user_id_user.departman')
   ->leftJoin('users as updated_User ', 'tasks.updated_byId', '=', 'updated_User.id')
-  ->select('tasks.*', 'user_id_user.name as user_name', 'user_id_user.surname as user_surname', 'updated_User.name as updated_User_name','departman.title as departmanTitle');
+  ->select('tasks.*', 'user_id_user.name as user_name', 'user_id_user.surname as user_surname', 'updated_User.name as updated_User_name','departman.name as departmanTitle');
 
   if ($status_where != 'tüm' && $status_where != 'Arşivlenen' ) { $tasks = $tasks->where('tasks.status', '=', $status_where); }
   if ($status_where == 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 1); }

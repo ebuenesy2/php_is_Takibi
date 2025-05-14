@@ -25,6 +25,7 @@ unset($_SESSION['status']); //! Sesion Siliyor
 
 // Url Veriden UserId
 $user_id_get = $_GET['user_id'] ?? ''; 
+$departman_id_get = $_GET['departman_id'] ?? ''; 
 //echo "user_id_get: "; echo $user_id_get; die();
 
 
@@ -51,12 +52,15 @@ if($userRole == 'admin') {
   ->join('users as user_id_user', 'tasks.user_id', '=', 'user_id_user.id')
   ->leftJoin('departman', 'departman.id', '=', 'user_id_user.departman')
   ->leftJoin('users as updated_User ', 'tasks.updated_byId', '=', 'updated_User.id')
-  ->select('tasks.*', 'user_id_user.name as user_name', 'user_id_user.surname as user_surname', 'updated_User.name as updated_User_name','departman.title as departmanTitle');
+  ->select('tasks.*', 'user_id_user.name as user_name', 'user_id_user.surname as user_surname', 
+           'updated_User.name as updated_User_name',
+           'departman.id as departmanId','departman.name as departmanTitle');
 
   if ($status_where != 'tüm' && $status_where != 'Arşivlenen' ) { $tasks = $tasks->where('tasks.status', '=', $status_where); }
   if ($status_where == 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 1); }
   else if ($status_where != 'Arşivlenen') { $tasks = $tasks->where('tasks.deleted_status', '=', 0); }
   if ($user_id_get ) { $tasks = $tasks->where('tasks.user_id', '=', $user_id_get); }
+  if ($departman_id_get ) { $tasks = $tasks->where('departman.id', '=', $departman_id_get); }
 
   if ($start_date && $end_date) {
     $tasks = $tasks->where('tasks.created_at', '>=', $start_date . ' 00:00:00')->where('tasks.created_at', '<=', $end_date . ' 23:59:59');
@@ -69,6 +73,12 @@ if($userRole == 'admin') {
   // Kullanıcının bilgileri al
   $users=[];
   if($userRole == 'admin') {   $users = DB::table('users')->where('users.deleted_status', '=', 0)->orderBy('name', 'ASC')->get(); }
+  //echo "<pre>"; print_r($users); die();
+
+
+  // Kullanıcının bilgileri al
+  $departmans=[];
+  if($userRole == 'admin') {   $departmans = DB::table('departman')->where('departman.deleted_status', '=', 0)->orderBy('name', 'ASC')->get(); }
   //echo "<pre>"; print_r($users); die();
   
 }
@@ -125,6 +135,21 @@ else {
           <?php endforeach; ?>
         </select>
       </div>
+      <!-- Kullanıcı Seçimi - Son-->
+
+      <!-- Departman Seçimi -->
+      <div class="d-flex gap-3">
+        <label for="departman_id" class="form-label m-auto">Departman</label>
+        <select name="departman_id" id="departman_id" class="form-control" style="cursor: pointer;">
+          <option value="0" <?= ($departman_id_get == 0) ? 'selected' : '' ?>>Hepsi</option>
+          <?php foreach ($departmans as $departman): ?>
+            <option value="<?= $departman['id'] ?>" <?= ($departman['id'] == $departman_id_get) ? 'selected' : '' ?>>
+              <?= htmlspecialchars($departman['name']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <!-- Departman Seçimi - Son-->
 
       <!-- Tarih Aralığı -->
       <div class="d-flex gap-3">
@@ -134,6 +159,7 @@ else {
         <label for="end_date" class="form-label m-auto">Bitiş</label>
         <input type="date" name="end_date" id="end_date" class="form-control" value="<?= $_GET['end_date'] ?? '' ?>">
       </div>
+      <!-- Tarih Aralığı - Son -->
 
       <!-- Gönder Butonu -->
       <div class="d-flex align-items-center gap-3">

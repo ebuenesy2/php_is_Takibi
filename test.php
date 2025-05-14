@@ -8,7 +8,7 @@ $offset = ($page - 1) * $perPage;
 
 $test = DB::table('test')
     ->join('users', 'test.created_byId', '=', 'users.id')
-    ->select('test.id', 'test.title', 'users.name as user_name')
+    ->select('test.id', 'test.title', 'users.name as user_name','users.departman')
     //->where('test.deleted_status', '=', 0)
     ->orderBy('id', 'ASC')
     //->limit($perPage)

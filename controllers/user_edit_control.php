@@ -21,12 +21,13 @@ $user_Get_Id = $_POST['id'] ?? 0;
 $name = $_POST['name'] ?? '';
 $surname = $_POST['surname'] ?? '';
 $email = $_POST['email'] ?? '';
-$user_departmnan = $_POST['user_departmnan'] ?? 0;
+$user_departman = $_POST['user_departman'] ?? 0;
 $user_role = $_POST['user_role'] ?? 'user';
 
 //! Kullanıcı Bilgileri
 $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
 //echo "<pre>"; print_r($userFind); die();
+
 
 if (count($userFind) == 0 ) {  
   
@@ -39,31 +40,47 @@ if (count($userFind) == 0 ) {
     if($user['role'] =='user') { header("Location: ../index.php"); exit; }
   }
 
+//! Yetki Kontrol
+if($user['role'] == 'user' && $userId != $user_Get_Id ) { echo "Başka bir kullanıcıyı güncelleme yetkiniz yoktur"; die();  }
 
-// Güncelle
-$updated = DB::table('users')->where('id', '=', $user_Get_Id)->update([
-    'name' => $name,
-    'surname' => $surname,
-    'email' => $email,
-    'departman' => $user_departmnan,
-    'role' => $user_role,
+
+// Ortak güncellenen alanlar
+$updateData = [
+    'name'           => $name,
+    'surname'        => $surname,
+    'email'          => $email,
+    'role'           => $user_role,
     'updated_status' => 1,
-    'updated_byId' => $sessionId,
-    'updated_at' => date('Y-m-d H:i:s')
-]);
+    'updated_byId'   => $sessionId,
+    'updated_at'     => date('Y-m-d H:i:s')
+];
+
+// Sadece admin ise departman güncellenir
+if ($user['role'] === 'admin') {
+    $updateData['departman'] = $user_departman;
+}
+
+// Güncelleme işlemi
+$updated = DB::table('users')->where('id', '=', $user_Get_Id)->update($updateData);
 
 
 if ($updated) {
 
-    // Session Bilgileri
-    $_SESSION['user'] = [
-        'id' => $user_Get_Id,
-        'name' => $name,
-        'surname' => $surname,
-        'email' => $email,
-        'departman' => $user_departmnan,
-        'role' => $user_role,
-    ];
+
+
+    if($user['role'] == 'user' && $userId != $user_Get_Id ) {
+
+        // Session Bilgileri
+        $_SESSION['user'] = [
+            'id' => $user_Get_Id,
+            'name' => $name,
+            'surname' => $surname,
+            'email' => $email,
+            'departman' => $user_departman,
+            'role' => $user_role,
+        ];
+
+    }
     
     $_SESSION['status'] = [
         'type'      => "success",

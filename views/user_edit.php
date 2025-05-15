@@ -9,11 +9,18 @@ $user = $_SESSION['user'];
 
 $userId = $user['id'];
 $userRole = $user['role'];
+//echo "userId: "; echo $userId; die();
 //echo "userRole: "; echo $userRole; die();
 
 //! Gelen Veri
 $user_Get_Id = $_GET['id'] ?? 0;
 //echo "user_Get_Id:"; echo $user_Get_Id; die();
+
+
+//! Yetki Kontrol
+if($user['role'] == 'user' && $userId != $user_Get_Id ) { echo "Başka bir kullanıcıyı güncelleme yetkiniz yoktur"; die();  }
+
+
 
 //! Kullanıcı Bilgileri
 $userFind = DB::table('users')->where('id', '=', $user_Get_Id)->get();
@@ -84,8 +91,8 @@ $departmans = DB::table('departman')->orderBy('name', 'ASC')->get();
 
       <?php if($userRole == 'admin') { ?>
       <div class="mb-3" style="cursor: pointer;">
-        <label for="user_departmnan" class="form-label">Departman</label>
-       <select name="user_departmnan" id="user_departmnan" class="form-control">
+        <label for="user_departman" class="form-label">Departman</label>
+       <select name="user_departman" id="user_departman" class="form-control">
         <option value="0">Departman Seç</option>
         <?php foreach ($departmans as $departman) { ?>
           <option value="<?= $departman['id'] ?>" <?= $user['departman'] == $departman['id'] ? 'selected' : '' ?>>

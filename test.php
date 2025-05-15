@@ -1,22 +1,25 @@
 <?php
 require_once 'config/Database.php';
 
-$test = DB::table('tasks')
-    ->join('users', 'tasks.user_id', '=', 'users.id')
-    ->select('tasks.id', 'tasks.title', 'users.name as user_name','users.departman')
-    //->where('test.deleted_status', '=', 0)
-    ->orderBy('departman', 'ASC')
-    ->groupBy('departman')
-    ->get();
-    //->get(true); // true = JSON olarak döne
+
+// Güncelle
+$updated_id = 47; //! Güncellenecek id
+
+// Ortak güncellenen alanlar
+$updateData = [
+    'title'           => 'title deneme',
+    'updated_status' => 1,
+    'updated_byId'   => 15,
+    'updated_at'     => date('Y-m-d H:i:s')
+];
+
+//! Sonradan ekleme durumu
+$updateData['name'] = "name user";
+
+// Güncelleme işlemi
+$updated = DB::table('test')->where('id', '=', $updated_id)->update($updateData);
 
 
-echo "<pre>"; print_r($test); die();
-
-
-// JSON'u diziye çevir
-$data = json_decode($test, true);
-echo "<pre>"; print_r($data); die();
-echo "id:"; echo $data[0]['id']; die();
+echo "güncelle";
 
 ?>

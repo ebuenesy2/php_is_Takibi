@@ -1,15 +1,16 @@
 # Php Mvc İş Takibi
 
 
-## Yapılacaklar
+## Yapılması Gerekenler
 ```
-config - > ayarları güncelle
+config - > Site Ayarları Güncelleme
 ```
 
 ## Özellikler
 ```
 * İş Takip Listesi - [ ekle / güncelle / sil / arşivle ]
-
+* İş Takip Listesi - Filtrele - Kullanıcı ve Departman
+* İş Takip Listesi - Filtrele - Zaman [ UpdateAt ]
 
 * Kullanıcı - Giriş
 * Kullanıcı - Giriş - Pasif Ekranı
@@ -21,6 +22,7 @@ config - > ayarları güncelle
 * Hata Sayfalar - 404
 * Hata Sayfalar - Pasif Ekranı
 * Hata Sayfalar - Yetkisiz Giriş
+* Hata Sayfalar - Veri Tabanı Bağlantı Hatası
 ```
 
 ## Kurallar
@@ -65,29 +67,5 @@ header("Location: ../index.php");
 
 ## Hata Sayfası
 ```
-if($user[0]['deleted_status'] == 1) {  header("Location: ../views/error/userPasif.php"); exit; }
-```
-
-
-## Yapılacaklar
-```
-* Departman Filtreleme
-
-
-* İş takibi - Post
-
-* Liste - Renklendirme
-* Kullanıcı Log
-* İş Log
-* Kuralları Modal ve Sayfada Göster
-
-* Zaman Filtrele
-* Pdf Sayfası
-
-
-
-*** 
-Site Listesi - İndex
-- Sekmesede çalıştırma
-- Hoşgeldiniz sayfası
+* Helper
 ```

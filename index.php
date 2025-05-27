@@ -164,7 +164,7 @@ else {
       <!-- Gönder Butonu -->
       <div class="d-flex align-items-center gap-3">
         <button type="submit" class="btn btn-primary">Filtrele</button>
-        <a href="<?=$base_url;?>/controllers/pdf_olustur.php?user_id=<?=$user_id_get?>&&status=<?=$status_where?>&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-success" >PDF Olarak İndir</a>
+        <a href="<?=$base_url;?>/controllers/pdf_olustur.php?user_id=<?=$user_id_get?>&&status=<?=$status_where?>&&start_date=<?=$start_date?> &&end_date=<?=$end_date?>" class="btn btn-success" target="_blank" >PDF Olarak İndir</a>
       </div>
 
     </form>
@@ -220,17 +220,23 @@ else {
             <?php if($userRole == 'admin') {  ?> <td><?= htmlspecialchars($task['updated_User_name']) ?></td> <?php } ?>
             
               <td style="display: flex;gap: 3px;">
-                <a href="<?=$base_url;?>/views/task_edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Düzenle</a>
-                
+               
+
+                <button 
+                  class="btn btn-sm btn-warning"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#editTaskModal"
+                  onclick='openEditModal(<?= json_encode($task, JSON_HEX_TAG) ?>)'
+                > Düzenle </button>
+                              
                          
                 <?php if ($status_where == 'Arşivlenen') { ?> 
                 <a href="<?=$base_url;?>/controllers/task_back_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Geri istediğinizden emin misiniz?');" style="width: max-content;">Geri Al</a>
                 <?php } ?>
 
                 <?php if ($status_where != 'Arşivlenen' || $userRole == 'admin' ) { ?> 
-                <a href="<?=$base_url;?>/controllers/task_delete_controller.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinizden emin misiniz?');">Sil</a>
+                 <button  class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $task['id'] ?>)"> Sil  </button>
                 <?php } ?>
-
        
 
               </td>
@@ -238,6 +244,87 @@ else {
         <?php endforeach; ?>
       </tbody>
     </table>
+
+    <!-- Düzenleme Modalı -->
+    <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form id="editTaskForm" method="POST" action="<?=$base_url;?>/controllers/task_update_controller.php">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editTaskModalLabel">Görev Düzenle</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" name="id" id="editTaskId">
+              <div class="mb-3">
+                <label for="editTitle" class="form-label">Başlık</label>
+                <input type="text" class="form-control" id="editTitle" name="title" required>
+              </div>
+              <div class="mb-3">
+                <label for="editDescription" class="form-label">Açıklama</label>
+                <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+              </div>
+              <!-- Durum Güncellemesi -->
+              <div class="mb-3">
+                <label for="editStatus" class="form-label">Durum</label>
+                <select class="form-control" id="editStatus" name="status">
+                  <option value="Devam Ediliyor">Devam Ediliyor</option>
+                  <option value="Planlandı">Planlandı</option>
+                  <option value="Tamamlandı">Tamamlandı</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+              <button type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
+
+<!--- Modal --->
+
+<!-- Bootstrap JS + Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+
+<script>
+function openEditModal(task) {
+  console.log(task); // bu satırı ekle
+  document.getElementById('editTaskId').value = task.id;
+  document.getElementById('editTitle').value = task.title;
+  document.getElementById('editDescription').value = task.description;
+  document.getElementById('editStatus').value = task.status;
+}
+</script>
+<!--- Modal Son --->
+
+
+<!--- Alert --->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function confirmDelete(id) {
+  Swal.fire({
+    title: 'Emin misiniz?',
+    text: "Bu işlemi geri alamazsınız!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Evet, sil!',
+    cancelButtonText: 'Vazgeç'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = '<?=$base_url;?>/controllers/task_delete_controller.php?id=' + id;
+    }
+  });
+}
+</script>
+<!--- Alert Son --->

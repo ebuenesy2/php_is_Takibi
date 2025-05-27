@@ -249,13 +249,14 @@ else {
     <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form id="editTaskForm" method="POST" action="<?=$base_url;?>/controllers/task_update_controller.php">
+          <form id="editTaskForm" method="POST" action="<?=$base_url;?>/controllers/task_edit_control.php">
             <div class="modal-header">
               <h5 class="modal-title" id="editTaskModalLabel">Görev Düzenle</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
             </div>
             <div class="modal-body">
               <input type="hidden" name="id" id="editTaskId">
+              <input type="hidden" name="user_id" id="editUser_id">
               <div class="mb-3">
                 <label for="editTitle" class="form-label">Başlık</label>
                 <input type="text" class="form-control" id="editTitle" name="title" required>
@@ -301,6 +302,7 @@ function openEditModal(task) {
   document.getElementById('editTitle').value = task.title;
   document.getElementById('editDescription').value = task.description;
   document.getElementById('editStatus').value = task.status;
+  document.getElementById('editUser_id').value = task.user_id;
 }
 </script>
 <!--- Modal Son --->
